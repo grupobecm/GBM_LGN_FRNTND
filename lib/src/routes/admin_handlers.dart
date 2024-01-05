@@ -1,0 +1,10 @@
+import 'package:fluro/fluro.dart';
+
+import 'package:boletera/src/ui/views/views.dart';
+
+class AdminHandlers {
+  // static Handler login = Handler(handlerFunc: (context, parameters) => const LoginView(),type: HandlerType.route);
+  static Handler login = Handler(handlerFunc: (context, parameters) => const LoginView());
+
+  static Handler register = Handler(handlerFunc: (context, parameters) => const RegisterView());
+}
