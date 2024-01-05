@@ -7,13 +7,11 @@ class BackgroundAuth extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
 
-    return Expanded(
-      child: Center(
-        widthFactor: 0.5,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30),
-          child: buildImage(size),
-        ),
+    return Center(
+      widthFactor: 0.5,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 30),
+        child: buildImage(size),
       ),
     );
   }

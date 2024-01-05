@@ -1,0 +1,9 @@
+{   
+    "loginTitle": "Continuar con",
+    "loginSubtitle": "O ingresa con tu cuenta de correo",
+    "loginForm1": "Correo",
+    "loginForm2": "Contraseña",
+    "loginButton": "Iniciar sesión",
+    "loginAreYouNew": "¿Eres nuevo en Ticketin? ",
+    "loginNewAcount": "vCrea una cuenta"
+}

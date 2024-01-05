@@ -12,7 +12,6 @@ class AuthLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ScrollController scrollController = ScrollController();
     final Size size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -24,17 +23,7 @@ class AuthLayout extends StatelessWidget {
         ),
         elevation: 5,
       ),
-      body: Scrollbar(
-        controller: scrollController,
-        thumbVisibility: true,
-        child: ListView(
-          controller: scrollController,
-          children: [
-            (size.width > 1000) ? _DesktopBody(child: child) : _MobileBody(child: child),
-            //TODO: LinksBar
-          ],
-        ),
-      ),
+      body: (size.width > 1000) ? _DesktopBody(child: child) : _MobileBody(child: child),
     );
   }
 }
@@ -56,16 +45,22 @@ class _DesktopBody extends StatelessWidget {
       height: size.height,
       child: Row(
         children: [
-          const BackgroundAuth(),
+          const Expanded(child: BackgroundAuth()),
           Container(
             color: Theme.of(context).colorScheme.primary,
             width: 600,
             height: double.infinity,
-            child: Column(
-              children: [
-                const CustomTitle(),
-                Expanded(child: child),
-              ],
+            child: Center(
+              child: SizedBox(
+                height: 600,
+                child: Column(
+                  children: [
+                    const CustomTitle(),
+                    const SizedBox(height: 40),
+                    Expanded(child: child),
+                  ],
+                ),
+              ),
             ),
           ),
         ],
@@ -84,27 +79,33 @@ class _MobileBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ScrollController scrollController = ScrollController();
+
     final Size size = MediaQuery.of(context).size;
 
     return SizedBox(
       width: size.width,
       height: size.height,
-      child: Column(
-        children: [
-          const BackgroundAuth(),
-          Container(
-            color: Theme.of(context).colorScheme.primary,
-            width: double.infinity,
-            height: size.height,
-            child: Column(
-              children: [
-                const CustomTitle(),
-                Expanded(child: child),
-                const BackgroundAuth(),
-              ],
+      child: Scrollbar(
+        controller: scrollController,
+        thumbVisibility: true,
+        child: ListView(
+          controller: scrollController,
+          children: [
+            Container(
+              width: size.width,
+              height: 600,
+              color: Theme.of(context).colorScheme.primary,
+              child: Column(
+                children: [
+                  const CustomTitle(),
+                  Expanded(child: child),
+                ],
+              ),
             ),
-          ),
-        ],
+            const Expanded(child: BackgroundAuth())
+          ],
+        ),
       ),
     );
   }

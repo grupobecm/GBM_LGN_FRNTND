@@ -6,21 +6,22 @@ import 'package:boletera/src/routes/admin_handlers.dart';
 class Flurorouter {
   static final FluroRouter router = FluroRouter();
 
-  static String rootRoute = '/';
+  // static String rootRoute = '/lo';
 
   // Auth Routes Declaration
-  static String loginRoute = '/auth/login';
-  static String registerRoute = '/auth/register';
-  static String getResetCodeRoute = '/auth/code';
-  static String resetPassRoute = '/auth/reset';
+  static String loginRoute = '/login';
+  static String registerRoute = '/register';
+  static String getResetCodeRoute = '/code';
+  static String resetPassRoute = '/reset';
 
   // Dashboard Routes Declaration
   static String dashboardRoute = '/dashboard';
 
   static void configureRoutes() {
     // Auth Routes Definition
-    router.define(rootRoute, handler: AdminHandlers.login);
     router.define(loginRoute, handler: AdminHandlers.login);
+    router.define(loginRoute, handler: AdminHandlers.login);
+    router.define(registerRoute, handler: AdminHandlers.register, transitionType: TransitionType.fadeIn);
     // router.define(registerRoute, handler: _handler);
     // router.define(getResetCodeRoute, handler: _handler);
     // router.define(resetPassRoute, handler: _handler);

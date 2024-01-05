@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CustomTitle extends StatelessWidget {
   const CustomTitle({super.key});
@@ -7,12 +7,12 @@ class CustomTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+      padding: const EdgeInsets.only(top: 40),
       child: FittedBox(
         fit: BoxFit.contain,
         child: Text(
-          'Continuar con',
-          style: GoogleFonts.montserratAlternates(fontWeight: FontWeight.bold, fontSize: 24),
+          AppLocalizations.of(context)!.loginTitle,
+          style: Theme.of(context).textTheme.titleMedium,
         ),
       ),
     );

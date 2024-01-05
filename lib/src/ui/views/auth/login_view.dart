@@ -1,22 +1,25 @@
 import 'package:flutter/material.dart';
 
+import 'package:boletera/src/ui/widgets/widgets.dart';
+
 class LoginView extends StatelessWidget {
   const LoginView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(top: 100),
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 370),
-          child: Form(
-            child: Column(
-              children: [
-                TextFormField()
-              ],
-            ),
+    // final Size size = MediaQuery.of(context).size;
+    return Center(
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 370),
+        child: const Form(
+          child: Column(
+            children: [
+              SocialButtons(),
+              SizedBox(height: 40),
+              LoginForm(),
+              SizedBox(height: 40),
+              ResgisterLink(),
+            ],
           ),
         ),
       ),
