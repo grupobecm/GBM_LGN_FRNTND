@@ -11,7 +11,7 @@ class CustomTitle extends StatelessWidget {
       child: FittedBox(
         fit: BoxFit.contain,
         child: Text(
-          AppLocalizations.of(context)!.loginTitle,
+          AppLocalizations.of(context)!.loginTitle, // TODO: Modify Title with respective view
           style: Theme.of(context).textTheme.titleMedium,
         ),
       ),

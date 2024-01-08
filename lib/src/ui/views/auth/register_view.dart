@@ -59,40 +59,40 @@ class RegisterView extends StatelessWidget {
 //           Row(
 //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
 //             children: [
-//               OutlinedButton(
-//                 style: ButtonStyle(
-//                   side: MaterialStatePropertyAll(
-//                     BorderSide(color: Theme.of(context).colorScheme.primary),
-//                   ),
-//                 ),
-//                 child: const Text('Cancelar'),
-//                 onPressed: () {},
-//               ),
-//               Container(
-//                 width: 120,
-//                 height: 35,
-//                 decoration: const BoxDecoration(
-//                   borderRadius: BorderRadius.all(Radius.circular(10)),
-//                   gradient: LinearGradient(
-//                     colors: [
-//                       Color(0xFF4e85f4),
-//                       Color(0xFF5529ef),
-//                     ],
-//                     stops: [0.3, 0.7],
-//                   ),
-//                 ),
-//                 child: MaterialButton(
-//                   shape: const RoundedRectangleBorder(
-//                     borderRadius: BorderRadius.all(Radius.circular(20)),
-//                   ),
-//                   hoverColor: const Color(0xFF4a68f4).withOpacity(0.7),
-//                   child: const Text(
-//                     'Aceptar',
-//                     style: TextStyle(color: Colors.white),
-//                   ),
-//                   onPressed: () {},
-//                 ),
-//               ),
+              // OutlinedButton(
+              //   style: ButtonStyle(
+              //     side: MaterialStatePropertyAll(
+              //       BorderSide(color: Theme.of(context).colorScheme.primary),
+              //     ),
+              //   ),
+              //   child: const Text('Cancelar'),
+              //   onPressed: () {},
+              // ),
+              // Container(
+              //   width: 120,
+              //   height: 35,
+              //   decoration: const BoxDecoration(
+              //     borderRadius: BorderRadius.all(Radius.circular(10)),
+              //     gradient: LinearGradient(
+              //       colors: [
+              //         Color(0xFF4e85f4),
+              //         Color(0xFF5529ef),
+              //       ],
+              //       stops: [0.3, 0.7],
+              //     ),
+              //   ),
+              //   child: MaterialButton(
+              //     shape: const RoundedRectangleBorder(
+              //       borderRadius: BorderRadius.all(Radius.circular(20)),
+              //     ),
+              //     hoverColor: const Color(0xFF4a68f4).withOpacity(0.7),
+              //     child: const Text(
+              //       'Aceptar',
+              //       style: TextStyle(color: Colors.white),
+              //     ),
+              //     onPressed: () {},
+              //   ),
+              // ),
 //             ],
 //           )
 //         ],

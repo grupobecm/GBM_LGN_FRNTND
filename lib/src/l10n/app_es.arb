@@ -1,6 +1,12 @@
-{   
+{
+    "cancelButton": "Cancelar",
+    "aceptButton": "Aceptar",
+
     "loginTitle": "Continuar con",
+    "changePassTitle": "Recuperar contraseña",
+
     "authSubtitle": "O ingresa con tu cuenta de correo",
+
     "loginForm1": "Correo",
     "loginForm2": "Contraseña",
     "loginButton": "Iniciar sesión",
@@ -18,5 +24,9 @@
     "newAcountCheckBox2": "He leído  y acepto los términos y condiciones.",
     "newAcountCheckBox3": "He leído y acepto el uso de mis datos personales de acuerdo con el aviso de privacidad.",
     "newAccountButton": "Crear cuenta",
-    "haveAcount": "¿Ya tienes una cuenta? "
+    "haveAcount": "¿Ya tienes una cuenta? ",
+
+    "resetPassSubtitle": "Ingresa el correo electrónico con el que te registraste",
+    "resetPassCodeSubtitle": "Ingresa el código de verificación que enviamos a tu correo",
+    "confirmPass": "Confirmar Contraseña"
 }

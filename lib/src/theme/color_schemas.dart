@@ -7,6 +7,8 @@ final lightTheme = ThemeData(
   textTheme: TextTheme(
     labelMedium: GoogleFonts.montserratAlternates(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w500),
     labelSmall: GoogleFonts.montserratAlternates(color: Colors.grey, fontSize: 14, fontWeight: FontWeight.w400),
+    bodyMedium: GoogleFonts.montserratAlternates(color: const Color(0xFF6750A4), fontSize: 14, fontWeight: FontWeight.w500),
+    bodySmall: GoogleFonts.montserratAlternates(color: Colors.black, fontSize: 12, fontWeight: FontWeight.w500),
     titleMedium: GoogleFonts.montserratAlternates(color: Colors.black, fontSize: 24, fontWeight: FontWeight.bold),
     titleSmall: GoogleFonts.montserratAlternates(color: const Color(0xFF6750A4), fontSize: 14, fontWeight: FontWeight.bold),
   ),

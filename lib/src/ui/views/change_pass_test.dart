@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class LoginTest extends StatelessWidget {
-  const LoginTest({super.key});
+class ChangePassTest extends StatelessWidget {
+  const ChangePassTest({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +11,7 @@ class LoginTest extends StatelessWidget {
         child: FittedBox(
           fit: BoxFit.contain,
           child: Text(
-            'Login Correcto',
+            'Password Cambiado Correctamente',
             style: Theme.of(context).textTheme.titleMedium,
           ),
         ),

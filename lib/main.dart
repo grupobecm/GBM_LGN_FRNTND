@@ -1,3 +1,4 @@
+import 'package:boletera/src/services/bloc_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -8,9 +9,11 @@ import 'package:boletera/src/theme/color_schemas.dart';
 import 'package:boletera/src/ui/layouts/layouts.dart';
 import 'package:boletera/src/services/navigation_service.dart';
 
-void main() {
+void main() async {
   // setupLocator(); //TODO: Revisar tema de las Global keys
   Flurorouter.configureRoutes();
+  await blocLocatorInit();
+  
   runApp(const MyApp());
 }
 
@@ -34,8 +37,6 @@ class MyApp extends StatelessWidget {
         // Locale('en'),
         Locale('es'),
         // Locale('fr'),
-
-
       ],
       initialRoute: Flurorouter.loginRoute,
       onGenerateRoute: Flurorouter.router.generator,

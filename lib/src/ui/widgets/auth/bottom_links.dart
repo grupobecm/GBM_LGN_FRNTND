@@ -17,7 +17,7 @@ class BottomLinks extends StatelessWidget {
             AppLocalizations.of(context)!.loginForgotPass,
             style: Theme.of(context).textTheme.labelMedium,
           ),
-          onPressed: () => Navigator.pushNamed(context, Flurorouter.getResetCodeRoute),
+          onPressed: () => Navigator.pushNamed(context, Flurorouter.recoveryPassRoute),
         ),
         const SizedBox(height: 30),
         Row(

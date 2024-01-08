@@ -1,6 +1,9 @@
+import 'package:boletera/src/blocs/auth/auth_bloc.dart';
+import 'package:boletera/src/services/bloc_locator.dart';
 import 'package:flutter/material.dart';
 
 import 'package:boletera/src/ui/widgets/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AuthLayout extends StatelessWidget {
   final Widget child;
@@ -14,16 +17,21 @@ class AuthLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
 
-    return Scaffold(
-      appBar: AppBar(
-        shadowColor: Theme.of(context).colorScheme.shadow,
-        title: Image.asset(
-          'assets/images/logo_black.png',
-          scale: 13,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => getIt<AuthBloc>()),
+      ],
+      child: Scaffold(
+        appBar: AppBar(
+          shadowColor: Theme.of(context).colorScheme.shadow,
+          title: Image.asset(
+            'assets/images/logo_black.png',
+            scale: 13,
+          ),
+          elevation: 5,
         ),
-        elevation: 5,
+        body: (size.width > 1000) ? _DesktopBody(child: child) : _MobileBody(child: child),
       ),
-      body: (size.width > 1000) ? _DesktopBody(child: child) : _MobileBody(child: child),
     );
   }
 }
@@ -60,7 +68,7 @@ class _DesktopBody extends StatelessWidget {
                   controller: scrollController,
                   children: [
                     SizedBox(
-                      height: 1000,
+                      height: 1000, //TODO: Cambiar el largo dependiendo de la vista
                       child: Column(
                         children: [
                           const CustomTitle(),
@@ -105,7 +113,7 @@ class _MobileBody extends StatelessWidget {
           children: [
             Container(
               width: size.width,
-              height: 1000,
+              height: 1000, // TODO: Modificar de acuerdo a la vista
               color: Theme.of(context).colorScheme.primary,
               child: Column(
                 children: [

@@ -1,18 +1,19 @@
-import 'package:boletera/src/providers/login_form_provider.dart';
 import 'package:flutter/material.dart';
 
 class CustomFormField extends StatefulWidget {
   final String text;
   final bool visibilityIcon;
   final int validationTipe;
-  final dynamic provider;
+  final bool isConfirmPass;
+  final Function onChanged;
 
   const CustomFormField({
-    super.key,
     required this.text,
+    required this.onChanged,
     this.visibilityIcon = false,
+    this.isConfirmPass = false,
     this.validationTipe = 0,
-    this.provider
+    super.key,
   });
 
   @override
@@ -35,7 +36,6 @@ class _CustomFormFieldState extends State<CustomFormField> {
       child: TextFormField(
         decoration: customDecoration(widget.text, context),
         cursorColor: Colors.black,
-        // ignore: unnecessary_null_comparison
         validator: (value) {
           if (widget.validationTipe == 1) {
             return emailValidator(value!);
@@ -44,7 +44,14 @@ class _CustomFormFieldState extends State<CustomFormField> {
           }
           return null;
         },
-        onChanged: (value) => (widget.validationTipe == 1) ? widget.provider.email = value : widget.provider.password = value,
+        onChanged: (value) => widget.onChanged(value),
+        // onChanged: (value) {
+        //   if (widget.isConfirmPass) {
+        //     widget.provider.confirmPass = value;
+        //   } else {
+        //     (widget.validationTipe == 1) ? widget.provider.email = value : widget.provider.password = value;
+        //   }
+        // },
       ),
     );
   }
@@ -58,6 +65,14 @@ class _CustomFormFieldState extends State<CustomFormField> {
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(5),
         borderSide: BorderSide(color: Theme.of(context).colorScheme.tertiary, width: 2),
+      ),
+      focusedErrorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(5),
+        borderSide: BorderSide(color: Theme.of(context).colorScheme.error, width: 2),
+      ),
+      errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(5),
+        borderSide: BorderSide(color: Theme.of(context).colorScheme.error),
       ),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(5),

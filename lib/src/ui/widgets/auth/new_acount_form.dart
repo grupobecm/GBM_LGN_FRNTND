@@ -1,9 +1,9 @@
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import 'package:boletera/src/routes/router.dart';
 import 'package:boletera/src/ui/widgets/custom_form_field.dart';
-import 'package:flutter/material.dart';
-
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class NewAcountForm extends StatelessWidget {
   const NewAcountForm({super.key});
@@ -17,11 +17,11 @@ class NewAcountForm extends StatelessWidget {
           style: Theme.of(context).textTheme.labelMedium,
         ),
         const SizedBox(height: 40),
-        CustomFormField(text: AppLocalizations.of(context)!.formName),
-        CustomFormField(text: AppLocalizations.of(context)!.formLastName),
-        CustomFormField(text: AppLocalizations.of(context)!.formEmail),
-        CustomFormField(text: AppLocalizations.of(context)!.formPass, visibilityIcon: true),
-        CustomFormField(text: AppLocalizations.of(context)!.formPassConfirm, visibilityIcon: true),
+        CustomFormField(text: AppLocalizations.of(context)!.formName, onChanged: () {}),
+        CustomFormField(text: AppLocalizations.of(context)!.formLastName, onChanged: () {}),
+        CustomFormField(text: AppLocalizations.of(context)!.formEmail, onChanged: () {}),
+        CustomFormField(text: AppLocalizations.of(context)!.formPass, visibilityIcon: true, onChanged: () {}),
+        CustomFormField(text: AppLocalizations.of(context)!.formPassConfirm, visibilityIcon: true, onChanged: () {}),
         Row(
           // TODO: Optimizar
           children: [
@@ -53,7 +53,7 @@ class NewAcountForm extends StatelessWidget {
               value: false,
               onChanged: (value) {},
             ),
-            Container(
+            SizedBox(
               width: 330,
               child: Text(
                 AppLocalizations.of(context)!.newAcountCheckBox3,
