@@ -38,6 +38,8 @@ class _DesktopBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ScrollController scrollController = ScrollController();
+
     final Size size = MediaQuery.of(context).size;
 
     return SizedBox(
@@ -51,13 +53,22 @@ class _DesktopBody extends StatelessWidget {
             width: 600,
             height: double.infinity,
             child: Center(
-              child: SizedBox(
-                height: 600,
-                child: Column(
+              child: Scrollbar(
+                controller: scrollController,
+                thumbVisibility: true,
+                child: ListView(
+                  controller: scrollController,
                   children: [
-                    const CustomTitle(),
-                    const SizedBox(height: 40),
-                    Expanded(child: child),
+                    SizedBox(
+                      height: 1000,
+                      child: Column(
+                        children: [
+                          const CustomTitle(),
+                          const SizedBox(height: 40),
+                          Expanded(child: child),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -94,11 +105,12 @@ class _MobileBody extends StatelessWidget {
           children: [
             Container(
               width: size.width,
-              height: 600,
+              height: 1000,
               color: Theme.of(context).colorScheme.primary,
               child: Column(
                 children: [
                   const CustomTitle(),
+                  const SizedBox(height: 40),
                   Expanded(child: child),
                 ],
               ),

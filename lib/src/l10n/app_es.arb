@@ -1,9 +1,22 @@
 {   
     "loginTitle": "Continuar con",
-    "loginSubtitle": "O ingresa con tu cuenta de correo",
+    "authSubtitle": "O ingresa con tu cuenta de correo",
     "loginForm1": "Correo",
     "loginForm2": "Contraseña",
     "loginButton": "Iniciar sesión",
+    "loginForgotPass": "¿Olvidaste tu contraseña?",
     "loginAreYouNew": "¿Eres nuevo en Ticketin? ",
-    "loginNewAcount": "vCrea una cuenta"
+    "loginNewAcount": "Crea una cuenta",
+
+    "formName": "Nombre*",
+    "formLastName": "Apellidos*",
+    "formEmail": "Correo*",
+    "formPass": "Contraseña*",
+    "formPassConfirm": "Confirmar Contraseña*",
+
+    "newAcountCheckBox1": "Soy organizador de eventos.",
+    "newAcountCheckBox2": "He leído  y acepto los términos y condiciones.",
+    "newAcountCheckBox3": "He leído y acepto el uso de mis datos personales de acuerdo con el aviso de privacidad.",
+    "newAccountButton": "Crear cuenta",
+    "haveAcount": "¿Ya tienes una cuenta? "
 }

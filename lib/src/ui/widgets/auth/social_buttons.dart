@@ -14,8 +14,8 @@ class SocialButtons extends StatelessWidget {
           width: 120,
           height: 40,
           child: SignInButton(
-            Buttons.FacebookNew,
-            text: 'Facebook',
+            Buttons.Apple,
+            text: 'iCloud',
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
             onPressed: () {},
           ),
