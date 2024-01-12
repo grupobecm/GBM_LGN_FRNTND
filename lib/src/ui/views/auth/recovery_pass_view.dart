@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -31,7 +33,7 @@ class RecoveryPassView extends StatelessWidget {
                   CustomFormField(
                     text: AppLocalizations.of(context)!.loginForm1,
                     validationTipe: 1,
-                    provider: loginFormProvider,
+                    // provider: loginFormProvider,
                     onChanged: () {},
                   ),
                   const SizedBox(height: 40),

@@ -1,19 +1,19 @@
-import 'package:boletera/src/services/bloc_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:boletera/src/routes/router.dart';
-import 'package:boletera/src/theme/color_schemas.dart';
+import 'package:boletera/src/services/services.dart';
 import 'package:boletera/src/ui/layouts/layouts.dart';
-import 'package:boletera/src/services/navigation_service.dart';
+import 'package:boletera/src/theme/color_schemas.dart';
+
 
 void main() async {
   // setupLocator(); //TODO: Revisar tema de las Global keys
   Flurorouter.configureRoutes();
   await blocLocatorInit();
-  
+
   runApp(const MyApp());
 }
 
@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Novek Ticket Panel',

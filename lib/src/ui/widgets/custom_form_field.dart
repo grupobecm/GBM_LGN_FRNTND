@@ -36,6 +36,9 @@ class _CustomFormFieldState extends State<CustomFormField> {
       child: TextFormField(
         decoration: customDecoration(widget.text, context),
         cursorColor: Colors.black,
+        obscureText: widget.validationTipe == 1 ? false : _hidePassword,
+        keyboardType: widget.validationTipe == 1 ? TextInputType.emailAddress : TextInputType.visiblePassword,
+        maxLength: widget.validationTipe == 1 ? 100 : 20,
         validator: (value) {
           if (widget.validationTipe == 1) {
             return emailValidator(value!);
@@ -45,13 +48,6 @@ class _CustomFormFieldState extends State<CustomFormField> {
           return null;
         },
         onChanged: (value) => widget.onChanged(value),
-        // onChanged: (value) {
-        //   if (widget.isConfirmPass) {
-        //     widget.provider.confirmPass = value;
-        //   } else {
-        //     (widget.validationTipe == 1) ? widget.provider.email = value : widget.provider.password = value;
-        //   }
-        // },
       ),
     );
   }
@@ -79,6 +75,7 @@ class _CustomFormFieldState extends State<CustomFormField> {
       ),
       labelText: text,
       labelStyle: Theme.of(context).textTheme.labelMedium,
+      counter: const SizedBox(),
       suffixIcon: (widget.visibilityIcon)
           ? IconButton(
               icon: Icon(
@@ -95,7 +92,7 @@ class _CustomFormFieldState extends State<CustomFormField> {
     );
   }
 
-  // TODO: Optimizar
+// Email Field Validator
   String? emailValidator(String email) {
     Pattern pattern = r"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'"
         r'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-'

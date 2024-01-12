@@ -5,9 +5,9 @@ import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import 'package:boletera/src/blocs/auth/auth_bloc.dart';
-import 'package:boletera/src/ui/widgets/custom_form_field.dart';
-import 'package:boletera/src/ui/widgets/custom_gradient_button.dart';
+import 'package:boletera/src/blocs/blocs.dart';
+import 'package:boletera/src/routes/router.dart';
+import 'package:boletera/src/ui/widgets/widgets.dart';
 
 class LoginForm extends StatelessWidget {
   const LoginForm({super.key});
@@ -15,10 +15,9 @@ class LoginForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AuthBloc authBloc = context.watch<AuthBloc>();
-    GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
     return Form(
-      key: formKey,
+      key: authBloc.loginFormKey,
       child: Column(
         children: [
           Text(
@@ -34,16 +33,13 @@ class LoginForm extends StatelessWidget {
             text: AppLocalizations.of(context)!.loginForm2,
             visibilityIcon: true,
             validationTipe: 2,
-            onChanged: (value) => authBloc.changeLoginData(null, value)),
+            onChanged: (value) => authBloc.changeLoginData(null, value),
           ),
           CustomGradientButton(
             text: AppLocalizations.of(context)!.loginButton,
             isLong: true,
-            onPressed: () async {
-              // if (await loginFormProvider.validateForm()) {
-              //   Navigator.pushNamed(context, Flurorouter.testLogedIn);
-              // }
-            },
+            onPressed: () async =>
+                await authBloc.startSession(context) ? Navigator.pushNamed(context, Flurorouter.testLogedIn) : null,
           ),
         ],
       ),

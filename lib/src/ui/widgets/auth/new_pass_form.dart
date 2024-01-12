@@ -27,7 +27,7 @@ class NewPassForm extends StatelessWidget {
                   text: AppLocalizations.of(context)!.loginForm2,
                   visibilityIcon: true,
                   validationTipe: 2,
-                  provider: loginFormProvider,
+                  // provider: loginFormProvider,
                   onChanged: () {},
                 ),
                 CustomFormField(
@@ -35,7 +35,7 @@ class NewPassForm extends StatelessWidget {
                   visibilityIcon: true,
                   validationTipe: 2,
                   isConfirmPass: true,
-                  provider: loginFormProvider,
+                  // provider: loginFormProvider,
                   onChanged: () {},
                 ),
                 const SizedBox(height: 20),

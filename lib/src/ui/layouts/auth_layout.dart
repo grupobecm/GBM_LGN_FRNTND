@@ -1,9 +1,10 @@
-import 'package:boletera/src/blocs/auth/auth_bloc.dart';
-import 'package:boletera/src/services/bloc_locator.dart';
 import 'package:flutter/material.dart';
-
-import 'package:boletera/src/ui/widgets/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+
+import 'package:boletera/src/blocs/blocs.dart';
+import 'package:boletera/src/services/services.dart';
+import 'package:boletera/src/ui/widgets/widgets.dart';
 
 class AuthLayout extends StatelessWidget {
   final Widget child;
@@ -30,7 +31,10 @@ class AuthLayout extends StatelessWidget {
           ),
           elevation: 5,
         ),
-        body: (size.width > 1000) ? _DesktopBody(child: child) : _MobileBody(child: child),
+        body: GraphQLProvider(
+          client: GraphQLClients.authClient,
+          child: (size.width > 1000) ? _DesktopBody(child: child) : _MobileBody(child: child),
+        ),
       ),
     );
   }
