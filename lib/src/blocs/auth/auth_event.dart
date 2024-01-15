@@ -19,3 +19,11 @@ final class GetPassCode extends AuthEvent {
 
   const GetPassCode(this.changePassCode);
 }
+
+final class DefineMessage extends AuthEvent {
+  final String message;
+
+  // TODO: Manejar los mensajes de error enviar codigo y aqui generar el texto
+
+  const DefineMessage(this.message);
+}

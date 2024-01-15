@@ -18,6 +18,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc() : super(const AuthState()) {
     on<LogIn>((event, emit) => emit(state.copyWith(email: event.email, password: event.password)));
     on<GetPassCode>((event, emit) => emit(state.copyWith(changePassCode: event.changePassCode)));
+    on<DefineMessage>((event, emit) => emit(state.copyWith(message: event.message)));
   }
 
   void resetState() {
@@ -55,10 +56,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         .then((result) {
       if (result.data?['Login']['response']['status'] == 200) {
         //TODO: Guardar JWT en local storage
+
+        add(const DefineMessage('Login Correcto'));
         return true;
       }
       if (result.hasException) {
-        print('Ocurrio un problema en la llamada a Login');
+        add(const DefineMessage('Ocurrio un problema en la llamada a Login'));
       }
     });
 

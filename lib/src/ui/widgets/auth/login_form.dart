@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 
 import 'package:boletera/src/blocs/blocs.dart';
 import 'package:boletera/src/routes/router.dart';
@@ -35,11 +36,24 @@ class LoginForm extends StatelessWidget {
             onChanged: (value) => authBloc.changeLoginData(null, value),
           ),
           CustomGradientButton(
-            text: AppLocalizations.of(context)!.loginButton,
-            isLong: true,
-            onPressed: () async =>
-                await authBloc.startSession(context) ? Navigator.pushNamed(context, Flurorouter.testLogedIn) : null,
-          ),
+              text: AppLocalizations.of(context)!.loginButton,
+              isLong: true,
+              onPressed: () async {
+                if (await authBloc.startSession(context) == true) {
+                  print('Holis');
+                  ScaffoldMessenger.of(context)
+                    ..hideCurrentSnackBar()
+                    ..showSnackBar(CustomScanckBar.buildSnackBar('Success', authBloc.state.message, ContentType.success));
+
+                  Navigator.pushNamed(context, Flurorouter.testLogedIn);
+                } else {
+                  print('${authBloc.state.message}');
+                }
+                // ScaffoldMessenger.of(context)
+                //   ..hideCurrentSnackBar()
+                //   ..showSnackBar(CustomScanckBar.buildSnackBar('Error', 'algo malo paso', ContentType.failure));
+                // await authBloc.startSession(context) ? Navigator.pushNamed(context, Flurorouter.testLogedIn) : null;
+              }),
         ],
       ),
     );

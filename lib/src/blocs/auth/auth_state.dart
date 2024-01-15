@@ -5,6 +5,7 @@ class AuthState extends Equatable {
   final String password;
   final String confirmPass;
   final List<int> changePassCode;
+  final String message;
 
 // ChangePassCode Model
   static const List<int> defaultChangePassCode = [0, 0, 0, 0, 0, 0];
@@ -14,6 +15,7 @@ class AuthState extends Equatable {
     this.password = '',
     this.confirmPass = '',
     this.changePassCode = defaultChangePassCode,
+    this.message = '',
   });
 
   AuthState copyWith({
@@ -21,14 +23,18 @@ class AuthState extends Equatable {
     String? password,
     String? confirmPass,
     List<int>? changePassCode,
-  }) =>
-      AuthState(
-        email: email ?? this.email,
-        password: password ?? this.password,
-        confirmPass: confirmPass ?? this.confirmPass,
-        changePassCode: changePassCode ?? this.changePassCode,
-      );
+    String? message,
+  }) {
+    print("Mensaje: $message");
+    return AuthState(
+      email: email ?? this.email,
+      password: password ?? this.password,
+      confirmPass: confirmPass ?? this.confirmPass,
+      changePassCode: changePassCode ?? this.changePassCode,
+      message: message ?? this.message,
+    );
+  }
 
   @override
-  List<Object> get props => [email, password, confirmPass, changePassCode];
+  List<Object> get props => [email, password, confirmPass, changePassCode, message];
 }

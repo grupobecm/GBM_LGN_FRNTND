@@ -21,7 +21,7 @@ class GraphQLClients {
             email: \$email,
             password: \$pass,
           },
-          device_type: Android
+          device_type: Browser
         }
       ) {
         token
@@ -43,7 +43,7 @@ class GraphQLClients {
   """;
 
   static const String changePass = """
-    mutation RecoveryPassword {
+    mutation ChangePass(\$email: String!, \$password: String!, \$code: Int!) {
       RecoveryPassword(input: {
         email: "\$email",
         password: "\$newpass",
@@ -54,6 +54,4 @@ class GraphQLClients {
       }
     }  
   """;
-
-  
 }
