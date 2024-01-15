@@ -12,7 +12,7 @@ part 'auth_state.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
   final GlobalKey<FormState> registerFormKey = GlobalKey<FormState>();
-  final GlobalKey<FormState> recoveryPassFormKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> recoveryCodeFormKey = GlobalKey<FormState>();
   final GlobalKey<FormState> changePassFormKey = GlobalKey<FormState>();
 
   AuthBloc() : super(const AuthState()) {
@@ -29,29 +29,99 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     add(LogIn(email, password));
   }
 
-  Future<bool> startSession(BuildContext context) async {
-    if (loginFormKey.currentState!.validate()) {
-      final GraphQLClient client = GraphQLProvider.of(context).value;
+  void changeResetCode(int fieldNumber, int value) {
+    List<int> list = state.changePassCode;
 
-      client
-          .query(QueryOptions(
-        document: gql(GraphQLClients.startSession),
-        variables: {
-          'email': state.email,
-          'pass': state.password,
-        },
-      ))
-          .then((result) {
-        if (result.hasException) {
-          print('Ocurrio un problema en la llamada a Login');
-        } else {
-          if (result.data?['Login']['response']['status'] == 200) {
-            //TODO: Guardar JWT en local storage
-            return true;
-          }
-        }
-      });
+    list[fieldNumber] = value;
+
+    add(GetPassCode(list));
+  }
+
+  Future<bool> startSession(BuildContext context) async {
+    if (!loginFormKey.currentState!.validate()) {
+      return false;
     }
+
+    final GraphQLClient client = GraphQLProvider.of(context).value;
+
+    client
+        .query(QueryOptions(
+      document: gql(GraphQLClients.startSession),
+      variables: {
+        'email': state.email,
+        'pass': state.password,
+      },
+    ))
+        .then((result) {
+      if (result.data?['Login']['response']['status'] == 200) {
+        //TODO: Guardar JWT en local storage
+        return true;
+      }
+      if (result.hasException) {
+        print('Ocurrio un problema en la llamada a Login');
+      }
+    });
+
+    return false;
+  }
+
+  Future<bool> sendResetCodeEmail(BuildContext context) async {
+    if (!recoveryCodeFormKey.currentState!.validate()) {
+      return false;
+    }
+
+    final GraphQLClient client = GraphQLProvider.of(context).value;
+
+    client
+        .query(QueryOptions(
+      document: gql(GraphQLClients.sendResetCodeEmail),
+      variables: {
+        'email': state.email,
+      },
+    ))
+        .then((result) {
+      if (result.data?['Generate_Code_Email_Recovery_Password']['status'] == 200) {
+        return true;
+      }
+      if (result.hasException) {
+        print('Ocurrio un problema al enviar el correo');
+      }
+    });
+
+    return false;
+  }
+
+  Future<bool> setNewPass(BuildContext context) async {
+    if (!changePassFormKey.currentState!.validate()) {
+      return false;
+    }
+
+    if (state.password != state.confirmPass) {
+      return false;
+    }
+
+    final GraphQLClient client = GraphQLProvider.of(context).value;
+    final int code = int.parse(
+      '${state.changePassCode[0]}${state.changePassCode[1]}${state.changePassCode[2]}${state.changePassCode[3]}${state.changePassCode[4]}${state.changePassCode[5]}',
+    );
+
+    client
+        .query(QueryOptions(
+      document: gql(GraphQLClients.sendResetCodeEmail),
+      variables: {
+        'email': state.email,
+        'newpass': state.confirmPass,
+        'code': code,
+      },
+    ))
+        .then((result) {
+      if (result.data?['RecoveryPassword']['status'] == 200) {
+        return true;
+      }
+      if (result.hasException) {
+        print('Ocurrió un problema al cambiar la contraseña');
+      }
+    });
 
     return false;
   }

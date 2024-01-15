@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:boletera/src/blocs/blocs.dart';
@@ -22,7 +21,7 @@ class LoginForm extends StatelessWidget {
         children: [
           Text(
             AppLocalizations.of(context)!.authSubtitle,
-            style: GoogleFonts.montserratAlternates(fontWeight: FontWeight.w500, fontSize: 16),
+            style: Theme.of(context).textTheme.labelMedium,
           ),
           const SizedBox(height: 40),
           CustomFormField(

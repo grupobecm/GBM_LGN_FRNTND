@@ -17,20 +17,42 @@ class GraphQLClients {
     query LoginData(\$email: String!, \$pass: String!) {
       Login(
         input: {
-            email_password: {
-                email: \$email,
-                password: \$pass,
-            },
-            device_type: Android
+          email_password: {
+            email: \$email,
+            password: \$pass,
+          },
+          device_type: Android
         }
       ) {
         token
         response {
-            message
-            status
+          message
+          status
         }
       }
     }   
+  """;
+
+  static const String sendResetCodeEmail = """
+    mutation SendRecoverCodeEmail(\$email: String!) {
+      Generate_Code_Email_Recovery_Password(input: \$email) {
+        message
+        status
+      }
+    }   
+  """;
+
+  static const String changePass = """
+    mutation RecoveryPassword {
+      RecoveryPassword(input: {
+        email: "\$email",
+        password: "\$newpass",
+        code: \$code
+      }) {
+        message
+        status
+      }
+    }  
   """;
 
   
