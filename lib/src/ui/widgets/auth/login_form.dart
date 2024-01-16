@@ -1,5 +1,4 @@
 // ignore_for_file: use_build_context_synchronously
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -15,6 +14,7 @@ class LoginForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AuthBloc authBloc = context.watch<AuthBloc>();
+    final MessageCubit messageCubit = context.watch<MessageCubit>();
 
     return Form(
       key: authBloc.loginFormKey,
@@ -39,19 +39,22 @@ class LoginForm extends StatelessWidget {
             text: AppLocalizations.of(context)!.loginButton,
             isLong: true,
             onPressed: () async {
+              final AppLocalizations appLocalizations = AppLocalizations.of(context)!;
+              final ScaffoldMessengerState scaffoldMessenger = ScaffoldMessenger.of(context)..hideCurrentSnackBar();
+
               authBloc.changeLoadingState(true);
+
               final bool sessionStarted = await authBloc.startSession(context);
 
-              ScaffoldMessenger.of(context)
-                ..hideCurrentSnackBar()
-                ..showSnackBar(CustomScanckBar.buildSnackBar(
-                  authBloc.state.code,
-                  authBloc.state.message,
-                  sessionStarted ? ContentType.success : ContentType.failure,
-                ));
+              if (messageCubit.state.code != '') {
+                messageCubit.getMessageString(appLocalizations);
+                scaffoldMessenger.showSnackBar(
+                  messageCubit.generateMessage(sessionStarted ? ContentType.success : ContentType.failure),
+                );
+              }
 
               authBloc.changeLoadingState(false);
-              authBloc.resetMessage();
+              messageCubit.resetMessage();
 
               if (sessionStarted) Navigator.pushNamed(context, Flurorouter.testLogedIn);
             },

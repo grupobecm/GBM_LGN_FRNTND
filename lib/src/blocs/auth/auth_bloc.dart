@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 import 'package:bloc/bloc.dart';
+import 'package:boletera/src/blocs/messages/messages_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
@@ -16,20 +17,20 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final GlobalKey<FormState> recoveryCodeFormKey = GlobalKey<FormState>();
   final GlobalKey<FormState> changePassFormKey = GlobalKey<FormState>();
 
-  AuthBloc() : super(const AuthState()) {
+  final MessageCubit _messageCubit;
+
+  AuthBloc({
+    required MessageCubit messageCubit,
+  })  : _messageCubit = messageCubit,
+        super(const AuthState()) {
     on<LogIn>((event, emit) => emit(state.copyWith(email: event.email, password: event.password)));
     on<GetPassCode>((event, emit) => emit(state.copyWith(changePassCode: event.changePassCode)));
-    on<DefineMessage>((event, emit) => emit(state.copyWith(code: event.code)));
     on<LoadingProcess>((event, emit) => emit(state.copyWith(isLoading: event.isLoading)));
   }
 
   void resetState() {
     add(const LogIn('', ''));
     add(const GetPassCode([0, 0, 0, 0, 0, 0]));
-  }
-
-  void resetMessage() {
-    add(const DefineMessage(''));
   }
 
   void changeLoginData(String? email, String? password) {
@@ -65,15 +66,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       ));
 
       final int code = result.data?['Login']['response']['status'];
-      add(DefineMessage(code.toString()));
+      _messageCubit.changeCode(code.toString());
 
-      // TODO: Crear Clase manejadora de Mensajes y usarla. para evitar usar message en el bloc
       if (code == 200) {
         // TODO: Guardar JWT en local storage
         return true;
       }
     } catch (error) {
-      add(DefineMessage('404'));
+      _messageCubit.changeCode('000');
     }
 
     return false;
@@ -89,23 +89,25 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       return false;
     }
 
-    final GraphQLClient client = GraphQLProvider.of(context).value;
+    try {
+      final GraphQLClient client = GraphQLProvider.of(context).value;
 
-    client
-        .query(QueryOptions(
-      document: gql(GraphQLClients.sendResetCodeEmail),
-      variables: {
-        'email': state.email,
-      },
-    ))
-        .then((result) {
-      if (result.data?['Generate_Code_Email_Recovery_Password']['status'] == 200) {
+      final result = await client.query(QueryOptions(
+        document: gql(GraphQLClients.sendResetCodeEmail),
+        variables: {
+          'email': state.email,
+        },
+      ));
+
+      final int code = result.data?['Generate_Code_Email_Recovery_Password']['status'];
+      _messageCubit.changeCode(code.toString());
+
+      if (code == 200) {
         return true;
       }
-      if (result.hasException) {
-        print('Ocurrio un problema al enviar el correo');
-      }
-    });
+    } catch (error) {
+      _messageCubit.changeCode('000');
+    }
 
     return false;
   }
@@ -119,28 +121,30 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       return false;
     }
 
-    final GraphQLClient client = GraphQLProvider.of(context).value;
-    final int code = int.parse(
-      '${state.changePassCode[0]}${state.changePassCode[1]}${state.changePassCode[2]}${state.changePassCode[3]}${state.changePassCode[4]}${state.changePassCode[5]}',
-    );
+    try {
+      final GraphQLClient client = GraphQLProvider.of(context).value;
+      final int passCode = int.parse(
+        '${state.changePassCode[0]}${state.changePassCode[1]}${state.changePassCode[2]}${state.changePassCode[3]}${state.changePassCode[4]}${state.changePassCode[5]}',
+      );
 
-    client
-        .query(QueryOptions(
-      document: gql(GraphQLClients.sendResetCodeEmail),
-      variables: {
-        'email': state.email,
-        'newpass': state.confirmPass,
-        'code': code,
-      },
-    ))
-        .then((result) {
-      if (result.data?['RecoveryPassword']['status'] == 200) {
+      final result = await client.query(QueryOptions(
+        document: gql(GraphQLClients.sendResetCodeEmail),
+        variables: {
+          'email': state.email,
+          'newpass': state.confirmPass,
+          'code': passCode,
+        },
+      ));
+
+      final int code = result.data?['RecoveryPassword']['status'];
+      _messageCubit.changeCode(code.toString());
+
+      if (code == 200) {
         return true;
       }
-      if (result.hasException) {
-        print('Ocurrió un problema al cambiar la contraseña');
-      }
-    });
+    } catch (error) {
+      _messageCubit.changeCode('000');
+    }
 
     return false;
   }

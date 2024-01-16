@@ -5,7 +5,6 @@ class AuthState extends Equatable {
   final String password;
   final String confirmPass;
   final List<int> changePassCode;
-  final String code;
   final bool isLoading;
 
 // ChangePassCode Model
@@ -16,7 +15,6 @@ class AuthState extends Equatable {
     this.password = '',
     this.confirmPass = '',
     this.changePassCode = defaultChangePassCode,
-    this.code = '',
     this.isLoading = false,
   });
 
@@ -34,11 +32,10 @@ class AuthState extends Equatable {
       password: password ?? this.password,
       confirmPass: confirmPass ?? this.confirmPass,
       changePassCode: changePassCode ?? this.changePassCode,
-      code: code ?? this.code,
       isLoading: isLoading ?? this.isLoading,
     );
   }
 
   @override
-  List<Object> get props => [email, password, confirmPass, changePassCode, code, isLoading];
+  List<Object> get props => [email, password, confirmPass, changePassCode, isLoading];
 }

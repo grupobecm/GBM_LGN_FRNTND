@@ -22,7 +22,7 @@ class Flurorouter {
   static void configureRoutes() {
     // Auth Routes Definition
     router.define(loginRoute, handler: AdminHandlers.login, transitionType: TransitionType.fadeIn);
-    router.define(loginRoute, handler: AdminHandlers.login, transitionType: TransitionType.fadeIn);
+    // router.define(loginRoute, handler: AdminHandlers.login, transitionType: TransitionType.fadeIn);
     router.define(registerRoute, handler: AdminHandlers.register, transitionType: TransitionType.fadeIn);
     router.define(changePassRoute, handler: AdminHandlers.changePass, transitionType: TransitionType.fadeIn);
     router.define(recoveryPassRoute, handler: AdminHandlers.recoveryPass, transitionType: TransitionType.fadeIn);

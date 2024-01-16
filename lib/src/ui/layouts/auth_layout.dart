@@ -18,10 +18,8 @@ class AuthLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
 
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (_) => getIt<AuthBloc>()),
-      ],
+    return BlocProvider(
+      create: (_) => getIt<AuthBloc>(),
       child: Scaffold(
         appBar: AppBar(
           shadowColor: Theme.of(context).colorScheme.shadow,
@@ -73,7 +71,7 @@ class _DesktopBody extends StatelessWidget {
                   children: [
                     SizedBox(
                       height: 1000, //TODO: Cambiar el largo dependiendo de la vista
-                      child: Expanded(child: child),
+                      child: child,
                     ),
                   ],
                 ),
@@ -113,7 +111,7 @@ class _MobileBody extends StatelessWidget {
               width: size.width,
               height: 1000, // TODO: Modificar de acuerdo a la vista
               color: Theme.of(context).colorScheme.primary,
-              child: Expanded(child: child),
+              child: child,
             ),
             const Expanded(child: BackgroundAuth())
           ],

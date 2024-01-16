@@ -20,12 +20,6 @@ final class GetPassCode extends AuthEvent {
   const GetPassCode(this.changePassCode);
 }
 
-final class DefineMessage extends AuthEvent {
-  final String code;
-
-  const DefineMessage(this.code);
-}
-
 final class LoadingProcess extends AuthEvent {
   final bool isLoading;
 
