@@ -73,13 +73,7 @@ class _DesktopBody extends StatelessWidget {
                   children: [
                     SizedBox(
                       height: 1000, //TODO: Cambiar el largo dependiendo de la vista
-                      child: Column(
-                        children: [
-                          const CustomTitle(),
-                          const SizedBox(height: 40),
-                          Expanded(child: child),
-                        ],
-                      ),
+                      child: Expanded(child: child),
                     ),
                   ],
                 ),
@@ -119,13 +113,7 @@ class _MobileBody extends StatelessWidget {
               width: size.width,
               height: 1000, // TODO: Modificar de acuerdo a la vista
               color: Theme.of(context).colorScheme.primary,
-              child: Column(
-                children: [
-                  const CustomTitle(),
-                  const SizedBox(height: 40),
-                  Expanded(child: child),
-                ],
-              ),
+              child: Expanded(child: child),
             ),
             const Expanded(child: BackgroundAuth())
           ],

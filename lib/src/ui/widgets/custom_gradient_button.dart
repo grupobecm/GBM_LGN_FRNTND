@@ -17,14 +17,14 @@ class CustomGradientButton extends StatelessWidget {
     return Container(
       width: isLong ? 400 : 120,
       height: 35,
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(20)),
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.all(Radius.circular(20)),
         gradient: LinearGradient(
           colors: [
-            Color(0xFF4e85f4),
-            Color(0xFF5529ef),
+            Theme.of(context).colorScheme.shadow,
+            Theme.of(context).colorScheme.secondaryContainer,
           ],
-          stops: [0.2, 0.8],
+          stops: const [0.2, 0.8],
         ),
       ),
       child: MaterialButton(

@@ -2,6 +2,10 @@
     "cancelButton": "Cancelar",
     "aceptButton": "Aceptar",
 
+    "errorLogin": "Fallo de inicio de sesión",
+    "fatalErrorLogin": "Ocurrió un problema en la llamada a Login",
+    "successLogin": "Inicio de sesión correcto",
+
     "loginTitle": "Continuar con",
     "changePassTitle": "Recuperar contraseña",
 

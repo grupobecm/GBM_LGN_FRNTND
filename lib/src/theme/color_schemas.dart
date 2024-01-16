@@ -4,13 +4,30 @@ import 'package:google_fonts/google_fonts.dart';
 final lightTheme = ThemeData(
   useMaterial3: true,
   colorScheme: lightColorScheme,
+  outlinedButtonTheme: const OutlinedButtonThemeData(
+      style: ButtonStyle(
+    side: MaterialStatePropertyAll(
+      BorderSide(color: Color(0xFF4e85f4)),
+    ),
+    shape: MaterialStatePropertyAll(
+      RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(20)),
+      ),
+    ),
+  )),
+  textSelectionTheme: const TextSelectionThemeData(
+    cursorColor: Colors.black,
+    selectionColor: Color(0xFFD0BCFF),
+  ),
   textTheme: TextTheme(
     labelMedium: GoogleFonts.montserratAlternates(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w500),
     labelSmall: GoogleFonts.montserratAlternates(color: Colors.grey, fontSize: 14, fontWeight: FontWeight.w400),
-    bodyMedium: GoogleFonts.montserratAlternates(color: const Color(0xFF6750A4), fontSize: 14, fontWeight: FontWeight.w500),
+    bodyMedium:
+        GoogleFonts.montserratAlternates(color: const Color(0xFF6750A4), fontSize: 14, fontWeight: FontWeight.w500),
     bodySmall: GoogleFonts.montserratAlternates(color: Colors.black, fontSize: 12, fontWeight: FontWeight.w500),
     titleMedium: GoogleFonts.montserratAlternates(color: Colors.black, fontSize: 24, fontWeight: FontWeight.bold),
-    titleSmall: GoogleFonts.montserratAlternates(color: const Color(0xFF6750A4), fontSize: 14, fontWeight: FontWeight.bold),
+    titleSmall:
+        GoogleFonts.montserratAlternates(color: const Color(0xFF6750A4), fontSize: 14, fontWeight: FontWeight.bold),
   ),
 );
 
@@ -34,7 +51,8 @@ const lightColorScheme = ColorScheme(
   inverseSurface: Color(0xFF969ba1),
   onInverseSurface: Color(0xFFF4EFF4),
   inversePrimary: Color(0xFFD0BCFF),
-  shadow: Color(0xff1f8af9),
+  shadow: Color(0xFF4e85f4),
+  secondaryContainer: Color(0xFF5529ef),
 );
 
 const darkColorScheme = ColorScheme(

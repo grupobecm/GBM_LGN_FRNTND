@@ -13,16 +13,7 @@ class CustomOutlinedButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return OutlinedButton(
-      style: ButtonStyle(
-        side: MaterialStatePropertyAll(
-          BorderSide(color: Theme.of(context).colorScheme.secondary),
-        ),
-        shape: const MaterialStatePropertyAll(
-          RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(20)),
-          ),
-        ),
-      ),
+      style: Theme.of(context).outlinedButtonTheme.style,
       onPressed: () {
         onPressed();
       },

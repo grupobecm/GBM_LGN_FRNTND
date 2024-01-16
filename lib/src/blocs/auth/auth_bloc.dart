@@ -1,3 +1,4 @@
+// ignore_for_file: use_build_context_synchronously
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -18,12 +19,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc() : super(const AuthState()) {
     on<LogIn>((event, emit) => emit(state.copyWith(email: event.email, password: event.password)));
     on<GetPassCode>((event, emit) => emit(state.copyWith(changePassCode: event.changePassCode)));
-    on<DefineMessage>((event, emit) => emit(state.copyWith(message: event.message)));
+    on<DefineMessage>((event, emit) => emit(state.copyWith(code: event.code)));
+    on<LoadingProcess>((event, emit) => emit(state.copyWith(isLoading: event.isLoading)));
   }
 
   void resetState() {
     add(const LogIn('', ''));
     add(const GetPassCode([0, 0, 0, 0, 0, 0]));
+  }
+
+  void resetMessage() {
+    add(const DefineMessage(''));
   }
 
   void changeLoginData(String? email, String? password) {
@@ -38,33 +44,43 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     add(GetPassCode(list));
   }
 
+  void changeLoadingState(bool isLoading) {
+    add(LoadingProcess(isLoading));
+  }
+
   Future<bool> startSession(BuildContext context) async {
     if (!loginFormKey.currentState!.validate()) {
       return false;
     }
 
-    final GraphQLClient client = GraphQLProvider.of(context).value;
+    try {
+      final GraphQLClient client = GraphQLProvider.of(context).value;
 
-    client
-        .query(QueryOptions(
-      document: gql(GraphQLClients.startSession),
-      variables: {
-        'email': state.email,
-        'pass': state.password,
-      },
-    ))
-        .then((result) {
-      if (result.data?['Login']['response']['status'] == 200) {
-        //TODO: Guardar JWT en local storage
+      final result = await client.query(QueryOptions(
+        document: gql(GraphQLClients.startSession),
+        variables: {
+          'email': state.email,
+          'pass': state.password,
+        },
+      ));
 
-        add(const DefineMessage('Login Correcto'));
+      final int code = result.data?['Login']['response']['status'];
+      add(DefineMessage(code.toString()));
+
+      // TODO: Crear Clase manejadora de Mensajes y usarla. para evitar usar message en el bloc
+      if (code == 200) {
+        // TODO: Guardar JWT en local storage
         return true;
       }
-      if (result.hasException) {
-        add(const DefineMessage('Ocurrio un problema en la llamada a Login'));
-      }
-    });
+    } catch (error) {
+      add(DefineMessage('404'));
+    }
 
+    return false;
+  }
+
+  Future<bool> googleStartSession() async {
+    //TODO: usar google_sign_in
     return false;
   }
 

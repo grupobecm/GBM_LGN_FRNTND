@@ -36,24 +36,26 @@ class LoginForm extends StatelessWidget {
             onChanged: (value) => authBloc.changeLoginData(null, value),
           ),
           CustomGradientButton(
-              text: AppLocalizations.of(context)!.loginButton,
-              isLong: true,
-              onPressed: () async {
-                if (await authBloc.startSession(context) == true) {
-                  print('Holis');
-                  ScaffoldMessenger.of(context)
-                    ..hideCurrentSnackBar()
-                    ..showSnackBar(CustomScanckBar.buildSnackBar('Success', authBloc.state.message, ContentType.success));
+            text: AppLocalizations.of(context)!.loginButton,
+            isLong: true,
+            onPressed: () async {
+              authBloc.changeLoadingState(true);
+              final bool sessionStarted = await authBloc.startSession(context);
 
-                  Navigator.pushNamed(context, Flurorouter.testLogedIn);
-                } else {
-                  print('${authBloc.state.message}');
-                }
-                // ScaffoldMessenger.of(context)
-                //   ..hideCurrentSnackBar()
-                //   ..showSnackBar(CustomScanckBar.buildSnackBar('Error', 'algo malo paso', ContentType.failure));
-                // await authBloc.startSession(context) ? Navigator.pushNamed(context, Flurorouter.testLogedIn) : null;
-              }),
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(CustomScanckBar.buildSnackBar(
+                  authBloc.state.code,
+                  authBloc.state.message,
+                  sessionStarted ? ContentType.success : ContentType.failure,
+                ));
+
+              authBloc.changeLoadingState(false);
+              authBloc.resetMessage();
+
+              if (sessionStarted) Navigator.pushNamed(context, Flurorouter.testLogedIn);
+            },
+          ),
         ],
       ),
     );
