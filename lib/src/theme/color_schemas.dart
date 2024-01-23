@@ -25,10 +25,12 @@ final lightTheme = ThemeData(
     bodyMedium:
         GoogleFonts.montserratAlternates(color: const Color(0xFF6750A4), fontSize: 14, fontWeight: FontWeight.w500),
     bodySmall: GoogleFonts.montserratAlternates(color: Colors.black, fontSize: 12, fontWeight: FontWeight.w500),
+    titleLarge: GoogleFonts.montserratAlternates(color: const Color(0xFF6750A4), fontSize: 24, fontWeight: FontWeight.w600),
     titleMedium: GoogleFonts.montserratAlternates(color: Colors.black, fontSize: 24, fontWeight: FontWeight.bold),
     titleSmall:
         GoogleFonts.montserratAlternates(color: const Color(0xFF6750A4), fontSize: 14, fontWeight: FontWeight.bold),
   ),
+  dividerColor: Colors.grey.shade300,
 );
 
 const lightColorScheme = ColorScheme(
@@ -45,7 +47,7 @@ const lightColorScheme = ColorScheme(
   background: Color(0xfff9f9f9),
   onBackground: Color(0xFFFFFFFF),
   surface: Color(0xFFFFFFFF),
-  onSurface: Color(0xFF1C1B1F),
+  onSurface: Color(0xFF2d2d35),
   surfaceVariant: Color(0xFFE7E0EC),
   onSurfaceVariant: Color(0xFF49454F),
   inverseSurface: Color(0xFF969ba1),

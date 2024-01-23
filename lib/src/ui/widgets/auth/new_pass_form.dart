@@ -56,7 +56,7 @@ class NewPassForm extends StatelessWidget {
                 text: AppLocalizations.of(context)!.aceptButton,
                 onPressed: () async {
                   if (await authBloc.setNewPass(context)) {
-                    Navigator.pushNamed(context, Flurorouter.testChangePass);
+                    // Navigator.pushNamed(context, Flurorouter.testChangePass);
                   }
                 },
               ),

@@ -25,3 +25,9 @@ final class LoadingProcess extends AuthEvent {
 
   const LoadingProcess(this.isLoading);
 }
+
+final class VerifyAuth extends AuthEvent {
+  final AuthStatus authStatus;
+
+  const VerifyAuth(this.authStatus);
+}

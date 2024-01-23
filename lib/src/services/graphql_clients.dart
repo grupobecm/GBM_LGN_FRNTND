@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
 class GraphQLClients {
-  static final HttpLink _usersLink = HttpLink('https://services.novek.life/Users/GraphQL');
-  static final HttpLink _novekLink = HttpLink('https://services.novek.life/Novek/GraphQL');
+  static final HttpLink _usersLink = HttpLink('https://services-dev.novek.life/Users/GraphQL');
+  static final HttpLink _novekLink = HttpLink('https://services-dev.novek.life/Novek/GraphQL');
 
   static final AuthLink _authLink = AuthLink(getToken: () async => 'Bearer ');
   static final Link _link = _authLink.concat(_novekLink);

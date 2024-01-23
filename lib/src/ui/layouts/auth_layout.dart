@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
-import 'package:boletera/src/blocs/blocs.dart';
 import 'package:boletera/src/services/services.dart';
 import 'package:boletera/src/ui/widgets/widgets.dart';
 
@@ -18,21 +16,18 @@ class AuthLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
 
-    return BlocProvider(
-      create: (_) => getIt<AuthBloc>(),
-      child: Scaffold(
-        appBar: AppBar(
-          shadowColor: Theme.of(context).colorScheme.shadow,
-          title: Image.asset(
-            'assets/images/logo_black.png',
-            scale: 13,
-          ),
-          elevation: 5,
+    return Scaffold(
+      appBar: AppBar(
+        shadowColor: Theme.of(context).colorScheme.shadow,
+        title: Image.asset(
+          'assets/images/logo_black.png',
+          scale: 13,
         ),
-        body: GraphQLProvider(
-          client: GraphQLClients.authClient,
-          child: (size.width > 1000) ? _DesktopBody(child: child) : _MobileBody(child: child),
-        ),
+        elevation: 5,
+      ),
+      body: GraphQLProvider(
+        client: GraphQLClients.authClient,
+        child: (size.width > 1000) ? _DesktopBody(child: child) : _MobileBody(child: child),
       ),
     );
   }
@@ -57,7 +52,7 @@ class _DesktopBody extends StatelessWidget {
       height: size.height,
       child: Row(
         children: [
-          const Expanded(child: BackgroundAuth()),
+          const Expanded(child: BackgroundAuth()), //TODO: Modify image in Login or Register
           Container(
             color: Theme.of(context).colorScheme.primary,
             width: 600,
@@ -104,17 +99,19 @@ class _MobileBody extends StatelessWidget {
       child: Scrollbar(
         controller: scrollController,
         thumbVisibility: true,
-        child: ListView(
-          controller: scrollController,
-          children: [
-            Container(
-              width: size.width,
-              height: 1000, // TODO: Modificar de acuerdo a la vista
-              color: Theme.of(context).colorScheme.primary,
-              child: child,
-            ),
-            const Expanded(child: BackgroundAuth())
-          ],
+        child: IntrinsicHeight(
+          child: ListView(
+            controller: scrollController,
+            children: [
+              Container(
+                width: size.width,
+                height: 1000, // TODO: Modificar de acuerdo a la vista
+                color: Theme.of(context).colorScheme.primary,
+                child: child,
+              ),
+              const BackgroundAuth()
+            ],
+          ),
         ),
       ),
     );

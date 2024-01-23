@@ -6,6 +6,7 @@ import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 
 import 'package:boletera/src/blocs/blocs.dart';
 import 'package:boletera/src/routes/router.dart';
+import 'package:boletera/src/services/services.dart';
 import 'package:boletera/src/ui/widgets/widgets.dart';
 
 class LoginForm extends StatelessWidget {
@@ -42,21 +43,20 @@ class LoginForm extends StatelessWidget {
               final AppLocalizations appLocalizations = AppLocalizations.of(context)!;
               final ScaffoldMessengerState scaffoldMessenger = ScaffoldMessenger.of(context)..hideCurrentSnackBar();
 
-              authBloc.changeLoadingState(true);
+              await authBloc.startSession(context);
+              final bool isAuthenticated = await authBloc.isAuthenticated();
 
-              final bool sessionStarted = await authBloc.startSession(context);
-
-              if (messageCubit.state.code != '') {
+              if (messageCubit.state.code.isNotEmpty) {
                 messageCubit.getMessageString(appLocalizations);
                 scaffoldMessenger.showSnackBar(
-                  messageCubit.generateMessage(sessionStarted ? ContentType.success : ContentType.failure),
+                  messageCubit.generateMessage(
+                    isAuthenticated ? ContentType.success : ContentType.failure,
+                  ),
                 );
               }
 
-              authBloc.changeLoadingState(false);
               messageCubit.resetMessage();
-
-              if (sessionStarted) Navigator.pushNamed(context, Flurorouter.testLogedIn);
+              if (isAuthenticated) NavigationService.replaceTo(Flurorouter.homeRoute);
             },
           ),
         ],

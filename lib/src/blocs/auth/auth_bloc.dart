@@ -1,10 +1,11 @@
 // ignore_for_file: use_build_context_synchronously
 import 'package:bloc/bloc.dart';
-import 'package:boletera/src/blocs/messages/messages_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
+import 'package:boletera/src/utils/utils.dart';
 import 'package:boletera/src/services/services.dart';
+import 'package:boletera/src/blocs/messages/messages_cubit.dart';
 
 import 'package:equatable/equatable.dart';
 
@@ -26,6 +27,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<LogIn>((event, emit) => emit(state.copyWith(email: event.email, password: event.password)));
     on<GetPassCode>((event, emit) => emit(state.copyWith(changePassCode: event.changePassCode)));
     on<LoadingProcess>((event, emit) => emit(state.copyWith(isLoading: event.isLoading)));
+    on<VerifyAuth>((event, emit) => emit(state.copyWith(authStatus: event.authStatus)));
+    isAuthenticated();
   }
 
   void resetState() {
@@ -49,10 +52,30 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     add(LoadingProcess(isLoading));
   }
 
-  Future<bool> startSession(BuildContext context) async {
-    if (!loginFormKey.currentState!.validate()) {
+  void changeAuthenticationState(AuthStatus authStatus) {
+    add(VerifyAuth(authStatus));
+  }
+
+  Future<bool> isAuthenticated() async {
+    final jwt = LocalStorage.sharedPreferences.getString('jwt');
+
+    if (jwt == null) {
+      changeAuthenticationState(AuthStatus.notAuthenticated);
       return false;
     }
+
+    //TODO: Autenticar token en Back
+
+    changeAuthenticationState(AuthStatus.authenticated);
+    return true;
+  }
+
+  Future<void> startSession(BuildContext context) async {
+    if (!loginFormKey.currentState!.validate()) {
+      return;
+    }
+
+    changeLoadingState(true);
 
     try {
       final GraphQLClient client = GraphQLProvider.of(context).value;
@@ -69,14 +92,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       _messageCubit.changeCode(code.toString());
 
       if (code == 200) {
-        // TODO: Guardar JWT en local storage
-        return true;
+        LocalStorage.sharedPreferences.setString('jwt', result.data?['Login']['token']);
       }
     } catch (error) {
       _messageCubit.changeCode('000');
+      changeLoadingState(false);
     }
-
-    return false;
+    changeLoadingState(false);
   }
 
   Future<bool> googleStartSession() async {

@@ -1,9 +1,9 @@
-import 'package:boletera/src/blocs/auth/auth_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 import 'package:boletera/src/ui/widgets/widgets.dart';
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:provider/provider.dart';
+import 'package:boletera/src/blocs/auth/auth_bloc.dart';
 
 class LoginView extends StatelessWidget {
   const LoginView({super.key});
