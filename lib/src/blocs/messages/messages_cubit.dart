@@ -32,8 +32,8 @@ class MessageCubit extends Cubit<MessageState> {
       case '404':
         emit(state.copyWith(message: localization.errorLogin));
         break;
-      case '001':
-        emit(state.copyWith(message: ''));
+      case '000':
+        emit(state.copyWith(message: 'Error en la comunicación, Intentelo mas tarde.'));
         break;
       default:
         emit(state.copyWith(message: ''));

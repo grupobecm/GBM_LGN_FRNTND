@@ -1,4 +1,3 @@
-// ignore_for_file: use_build_context_synchronously
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -82,17 +81,18 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
       final result = await client.query(QueryOptions(
         document: gql(GraphQLClients.startSession),
+        fetchPolicy: FetchPolicy.networkOnly,
         variables: {
           'email': state.email,
           'pass': state.password,
         },
       ));
 
-      final int code = result.data?['Login']['response']['status'];
-      _messageCubit.changeCode(code.toString());
-
-      if (code == 200) {
-        LocalStorage.sharedPreferences.setString('jwt', result.data?['Login']['token']);
+      if (!result.hasException) {
+        _messageCubit.changeCode('200'); //TODO: Obtener el codigo cuando es un error
+        LocalStorage.sharedPreferences.setString('jwt', result.data?['Login']);
+      } else {
+        _messageCubit.changeCode('404');
       }
     } catch (error) {
       _messageCubit.changeCode('000');
@@ -121,11 +121,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         },
       ));
 
-      final int code = result.data?['Generate_Code_Email_Recovery_Password']['status'];
-      _messageCubit.changeCode(code.toString());
-
-      if (code == 200) {
+      if (!result.hasException) {
+        _messageCubit.changeCode('200'); //TODO: Obtener el codigo cuando es un error
         return true;
+      } else {
+        _messageCubit.changeCode('404');
       }
     } catch (error) {
       _messageCubit.changeCode('000');
@@ -158,11 +158,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         },
       ));
 
-      final int code = result.data?['RecoveryPassword']['status'];
-      _messageCubit.changeCode(code.toString());
-
-      if (code == 200) {
+      if (!result.hasException) {
+        _messageCubit.changeCode('200'); //TODO: Obtener el codigo cuando es un error
         return true;
+      } else {
+        _messageCubit.changeCode('404');
       }
     } catch (error) {
       _messageCubit.changeCode('000');

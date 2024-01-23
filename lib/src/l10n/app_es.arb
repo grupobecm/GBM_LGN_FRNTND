@@ -32,5 +32,7 @@
 
     "resetPassSubtitle": "Ingresa el correo electrónico con el que te registraste",
     "resetPassCodeSubtitle": "Ingresa el código de verificación que enviamos a tu correo",
-    "confirmPass": "Confirmar Contraseña"
+    "confirmPass": "Confirmar Contraseña",
+
+    "menuOne": "Eventos"
 }

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
+import 'package:boletera/src/routes/router.dart';
+import 'package:boletera/src/services/services.dart';
 import 'package:boletera/src/ui/widgets/widgets.dart';
 
-class HomeView extends StatelessWidget {
-  const HomeView({super.key});
+class EventsView extends StatelessWidget {
+  const EventsView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +21,7 @@ class HomeView extends StatelessWidget {
             childAspectRatio: 370 / 300,
             maxCrossAxisExtent: 370,
             crossAxisSpacing: 30,
-            mainAxisSpacing: 10,
+            mainAxisSpacing: 20,
             padding: const EdgeInsets.all(20),
             children: List.generate(list.length, (index) => EventCard(title: list[index])),
           ),
@@ -30,8 +32,6 @@ class HomeView extends StatelessWidget {
 }
 
 class _HomeHeader extends StatelessWidget {
-  // const _HomeHeader({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -47,7 +47,6 @@ class _HomeHeader extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Text('En venta(0)'),
-                  Text('En revisión(0)'),
                   Text('Pasados(0)'),
                   Text('Todos(1)'),
                 ],
@@ -57,7 +56,7 @@ class _HomeHeader extends StatelessWidget {
         ),
         ElevatedButton(
           style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Theme.of(context).colorScheme.secondary)),
-          onPressed: () {},
+          onPressed: () => NavigationService.replaceTo(Flurorouter.eventRoute),
           child: const Icon(Icons.add),
         ),
         const SizedBox(width: 50,)

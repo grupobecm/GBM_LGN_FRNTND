@@ -7,6 +7,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:boletera/src/utils/utils.dart';
 import 'package:boletera/src/blocs/blocs.dart';
 import 'package:boletera/src/routes/router.dart';
+import 'package:boletera/src/ui/views/views.dart';
 import 'package:boletera/src/services/services.dart';
 import 'package:boletera/src/ui/layouts/layouts.dart';
 import 'package:boletera/src/theme/color_schemas.dart';
@@ -61,7 +62,7 @@ class MyApp extends StatelessWidget {
 
         // return DashboardLayout(child: child!);
 
-        if (authBloc.state.authStatus == AuthStatus.checking) return const SplashLayout();
+        if (authBloc.state.authStatus == AuthStatus.checking) return const LoaderView();
         if (authBloc.state.authStatus == AuthStatus.authenticated) return DashboardLayout(child: child!).animate().fadeIn(duration: 1000.ms);
         if (authBloc.state.authStatus == AuthStatus.notAuthenticated) return AuthLayout(child: child!);
         return const SizedBox();

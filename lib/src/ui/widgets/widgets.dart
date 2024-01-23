@@ -2,7 +2,6 @@
 export 'package:boletera/src/ui/widgets/custom_form_field.dart';
 export 'package:boletera/src/ui/widgets/custom_gradient_button.dart';
 export 'package:boletera/src/ui/widgets/custom_outlined_button.dart';
-export 'package:boletera/src/ui/widgets/custom_event_card.dart';
 
 // Auth Widgets
 export 'package:boletera/src/ui/widgets/auth/login_form.dart';
@@ -20,4 +19,5 @@ export 'package:boletera/src/ui/widgets/dashboard/menu_button.dart';
 // Event Widgets
 export 'package:boletera/src/ui/widgets/events/event_form.dart';
 export 'package:boletera/src/ui/widgets/events/event_calendar.dart';
+export 'package:boletera/src/ui/widgets/events/custom_event_card.dart';
 export 'package:boletera/src/ui/widgets/events/underline_form_field.dart';

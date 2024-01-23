@@ -23,12 +23,15 @@ final lightTheme = ThemeData(
     labelMedium: GoogleFonts.montserratAlternates(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w500),
     labelSmall: GoogleFonts.montserratAlternates(color: Colors.grey, fontSize: 14, fontWeight: FontWeight.w400),
     bodyMedium:
-        GoogleFonts.montserratAlternates(color: const Color(0xFF6750A4), fontSize: 14, fontWeight: FontWeight.w500),
+        GoogleFonts.montserratAlternates(color: const Color(0xFF2f2778), fontSize: 14, fontWeight: FontWeight.w500),
     bodySmall: GoogleFonts.montserratAlternates(color: Colors.black, fontSize: 12, fontWeight: FontWeight.w500),
-    titleLarge: GoogleFonts.montserratAlternates(color: const Color(0xFF6750A4), fontSize: 24, fontWeight: FontWeight.w600),
+    titleLarge:
+        GoogleFonts.montserratAlternates(color: const Color(0xFF2f2778), fontSize: 24, fontWeight: FontWeight.w600),
     titleMedium: GoogleFonts.montserratAlternates(color: Colors.black, fontSize: 24, fontWeight: FontWeight.bold),
     titleSmall:
-        GoogleFonts.montserratAlternates(color: const Color(0xFF6750A4), fontSize: 14, fontWeight: FontWeight.bold),
+        GoogleFonts.montserratAlternates(color: const Color(0xFF2f2778), fontSize: 14, fontWeight: FontWeight.bold),
+    displayMedium:
+        GoogleFonts.montserratAlternates(color: const Color(0xFF2f2778), fontWeight: FontWeight.bold),
   ),
   dividerColor: Colors.grey.shade300,
 );
@@ -37,13 +40,13 @@ const lightColorScheme = ColorScheme(
   brightness: Brightness.light,
   primary: Color(0xFFFFFFFF),
   onPrimary: Color(0xFFFFFFFF),
-  secondary: Color(0xFF6750A4),
+  secondary: Color(0xFF2f2778),
   onSecondary: Color(0xFFFFFFFF),
   tertiary: Color.fromARGB(255, 64, 27, 167),
   onTertiary: Color(0xFFFFFFFF),
   error: Color(0xFFB3261E),
   onError: Color(0xFFFFFFFF),
-  outline: Color(0xFF6750A4),
+  outline: Color(0xFF2f2778),
   background: Color(0xfff9f9f9),
   onBackground: Color(0xFFFFFFFF),
   surface: Color(0xFFFFFFFF),

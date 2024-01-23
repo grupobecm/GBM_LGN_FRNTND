@@ -16,11 +16,11 @@ class Flurorouter {
   static String recoveryPassRoute = '/reset';
 
   // Dashboard Routes Declaration
-  static String homeRoute = '/home';
+  static String eventsRoute = '/events';
 
   // Event Route
-  static String eventRoute = '/event/create';
-  static String updatEeventRoute = '/event/update';
+  static String eventRoute = '/events/create';
+  static String updatEeventRoute = '/events/update';
 
   static void configureRoutes() {
     // Auth Routes Definition
@@ -30,7 +30,7 @@ class Flurorouter {
     router.define(recoveryPassRoute, handler: AuthHandlers.recoveryPass, transitionType: TransitionType.fadeIn);
 
     // Event Routes Definition
-    router.define(homeRoute, handler: DashboardHandlers.dashboard, transitionType: TransitionType.fadeIn);
+    router.define(eventsRoute, handler: DashboardHandlers.dashboard, transitionType: TransitionType.fadeIn);
     router.define(eventRoute, handler: DashboardHandlers.event, transitionType: TransitionType.fadeIn);
     router.define(updatEeventRoute, handler: DashboardHandlers.updateEvent, transitionType: TransitionType.fadeIn);
 

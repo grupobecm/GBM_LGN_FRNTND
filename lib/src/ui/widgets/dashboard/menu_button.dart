@@ -29,10 +29,11 @@ class _MenuButtonState extends State<MenuButton> {
       child: TextButton(
         onPressed: () => NavigationService.replaceTo(selctRoute()),
         style: ButtonStyle(
+          // minimumSize: const MaterialStatePropertyAll(Size(150, 30)),
           foregroundColor: MaterialStateProperty.resolveWith<Color>(
             (Set<MaterialState> states) {
               // Cambiar el color al pasar el ratón por encima
-              return isHovered ? Theme.of(context).colorScheme.secondary : Theme.of(context).colorScheme.primary;
+              return isHovered ? Theme.of(context).colorScheme.inversePrimary : Theme.of(context).colorScheme.primary;
             },
           ),
         ),
@@ -49,10 +50,10 @@ class _MenuButtonState extends State<MenuButton> {
   }
 
   String selctRoute() {
-    if (widget.text == 'Home        ') return Flurorouter.homeRoute;
-    if (widget.text == 'Create Event') return Flurorouter.eventRoute;
-    if (widget.text == 'Update Event') return Flurorouter.updatEeventRoute;
+    if (widget.text == 'Events') return Flurorouter.eventsRoute;
+    // if (widget.text == 'Create Event') return Flurorouter.eventRoute;
+    // if (widget.text == 'Update Event') return Flurorouter.updatEeventRoute;
 
-    return Flurorouter.homeRoute;
+    return Flurorouter.eventsRoute;
   }
 }

@@ -18,19 +18,13 @@ class GraphQLClients {
       Login(
         input: {
           email_password: {
-            email: \$email,
-            password: \$pass,
-          },
+            email: \$email
+            password: \$pass
+          }
           device_type: Browser
         }
-      ) {
-        token
-        response {
-          message
-          status
-        }
-      }
-    }   
+      )
+    }
   """;
 
   static const String sendResetCodeEmail = """

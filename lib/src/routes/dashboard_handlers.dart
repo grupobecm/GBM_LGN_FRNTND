@@ -10,7 +10,7 @@ class DashboardHandlers {
     final AuthBloc authBloc = context!.watch<AuthBloc>();
 
     if (authBloc.state.authStatus == AuthStatus.notAuthenticated) return const LoginView();
-    if (authBloc.state.authStatus == AuthStatus.authenticated) return const HomeView();
+    if (authBloc.state.authStatus == AuthStatus.authenticated) return const EventsView();
     return null;
   });
 

@@ -56,7 +56,7 @@ class LoginForm extends StatelessWidget {
               }
 
               messageCubit.resetMessage();
-              if (isAuthenticated) NavigationService.replaceTo(Flurorouter.homeRoute);
+              if (isAuthenticated) NavigationService.replaceTo(Flurorouter.eventsRoute);
             },
           ),
         ],
