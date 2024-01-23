@@ -59,11 +59,10 @@ class MyApp extends StatelessWidget {
       builder: (_, child) {
         final AuthBloc authBloc = context.watch<AuthBloc>();
 
-        return DashboardLayout(child: child!);
+        // return DashboardLayout(child: child!);
 
         if (authBloc.state.authStatus == AuthStatus.checking) return const SplashLayout();
-        if (authBloc.state.authStatus == AuthStatus.authenticated)
-          return DashboardLayout(child: child!).animate().fadeIn(duration: 1000.ms);
+        if (authBloc.state.authStatus == AuthStatus.authenticated) return DashboardLayout(child: child!).animate().fadeIn(duration: 1000.ms);
         if (authBloc.state.authStatus == AuthStatus.notAuthenticated) return AuthLayout(child: child!);
         return const SizedBox();
       },
