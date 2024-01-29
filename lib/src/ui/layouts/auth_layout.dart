@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
+import 'package:boletera/src/blocs/blocs.dart';
+import 'package:boletera/src/ui/views/views.dart';
 import 'package:boletera/src/services/services.dart';
 import 'package:boletera/src/ui/widgets/widgets.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class AuthLayout extends StatelessWidget {
   final Widget child;
@@ -14,36 +18,49 @@ class AuthLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final AuthBloc authBloc = context.watch<AuthBloc>();
+    // final ScrollController scrollController = ScrollController();
+
     final Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      appBar: AppBar(
-        shadowColor: Theme.of(context).colorScheme.shadow,
-        title: Image.asset(
-          'assets/images/logo_black.png',
-          scale: 13,
-        ),
-        elevation: 5,
-      ),
       body: GraphQLProvider(
         client: GraphQLClients.authClient,
-        child: (size.width > 1000) ? _DesktopBody(child: child) : _MobileBody(child: child),
+        child: ModalProgressHUD(
+          inAsyncCall: authBloc.state.isLoading,
+          progressIndicator: const LoaderView(),
+          opacity: 0.15,
+          child: (size.width > 1000)
+              ? _DesktopBody(
+                  mode: authBloc.state.viewMode,
+                  scrollController: authBloc.scrollController,
+                  child: child,
+                )
+              : _MobileBody(
+                  mode: authBloc.state.viewMode,
+                  scrollController: authBloc.scrollController,
+                  child: child,
+                ),
+        ),
       ),
     );
   }
 }
 
 class _DesktopBody extends StatelessWidget {
+  final int mode;
   final Widget child;
+  final ScrollController scrollController;
 
   const _DesktopBody({
     Key? key,
+    required this.mode,
     required this.child,
+    required this.scrollController,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final ScrollController scrollController = ScrollController();
 
     final Size size = MediaQuery.of(context).size;
 
@@ -52,7 +69,7 @@ class _DesktopBody extends StatelessWidget {
       height: size.height,
       child: Row(
         children: [
-          const Expanded(child: BackgroundAuth()), //TODO: Modify image in Login or Register
+          Expanded(child: BackgroundAuth(mode: mode)),
           Container(
             color: Theme.of(context).colorScheme.primary,
             width: 600,
@@ -64,8 +81,13 @@ class _DesktopBody extends StatelessWidget {
                 child: ListView(
                   controller: scrollController,
                   children: [
+                    const LogoImage(topPadding: 80),
                     SizedBox(
-                      height: 1000, //TODO: Cambiar el largo dependiendo de la vista
+                      height: mode == 1
+                          ? 700
+                          : mode == 2
+                              ? 1150
+                              : 600,
                       child: child,
                     ),
                   ],
@@ -80,16 +102,20 @@ class _DesktopBody extends StatelessWidget {
 }
 
 class _MobileBody extends StatelessWidget {
+  final int mode;
   final Widget child;
+  final ScrollController scrollController;
 
   const _MobileBody({
     Key? key,
+    required this.mode,
     required this.child,
+    required this.scrollController,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final ScrollController scrollController = ScrollController();
+    // final ScrollController scrollController = ScrollController();
 
     final Size size = MediaQuery.of(context).size;
 
@@ -105,11 +131,20 @@ class _MobileBody extends StatelessWidget {
             children: [
               Container(
                 width: size.width,
-                height: 1000, // TODO: Modificar de acuerdo a la vista
+                color: Theme.of(context).colorScheme.primary,
+                child: const LogoImage(topPadding: 80),
+              ),
+              Container(
+                width: size.width,
+                height: mode == 1
+                    ? 700
+                    : mode == 2
+                        ? 1150
+                        : 600,
                 color: Theme.of(context).colorScheme.primary,
                 child: child,
               ),
-              const BackgroundAuth()
+              BackgroundAuth(mode: mode)
             ],
           ),
         ),

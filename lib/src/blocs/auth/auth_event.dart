@@ -31,3 +31,9 @@ final class VerifyAuth extends AuthEvent {
 
   const VerifyAuth(this.authStatus);
 }
+
+final class SelectViewMode extends AuthEvent {
+  final int viewMode;
+
+  const SelectViewMode(this.viewMode);
+}

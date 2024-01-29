@@ -8,6 +8,7 @@ import 'package:boletera/src/ui/views/views.dart';
 class AuthHandlers {
   static Handler login = Handler(handlerFunc: (context, parameters) {
     final AuthBloc authBloc = context!.watch<AuthBloc>();
+    authBloc.changeViewMode(1);
 
     if (authBloc.state.authStatus == AuthStatus.notAuthenticated) return const LoginView();
     if (authBloc.state.authStatus == AuthStatus.authenticated) return const EventsView();
@@ -16,6 +17,7 @@ class AuthHandlers {
 
   static Handler register = Handler(handlerFunc: (context, parameters) {
     final AuthBloc authBloc = context!.watch<AuthBloc>();
+    authBloc.changeViewMode(2);
 
     if (authBloc.state.authStatus == AuthStatus.notAuthenticated) return const RegisterView();
     if (authBloc.state.authStatus == AuthStatus.authenticated) return const EventsView();
@@ -24,6 +26,7 @@ class AuthHandlers {
 
   static Handler recoveryPass = Handler(handlerFunc: (context, parameters) {
     final AuthBloc authBloc = context!.watch<AuthBloc>();
+    authBloc.changeViewMode(3);
 
     if (authBloc.state.authStatus == AuthStatus.notAuthenticated) return const RecoveryPassView();
     if (authBloc.state.authStatus == AuthStatus.authenticated) return const EventsView();
@@ -32,6 +35,7 @@ class AuthHandlers {
 
   static Handler changePass = Handler(handlerFunc: (context, parameters) {
     final AuthBloc authBloc = context!.watch<AuthBloc>();
+    authBloc.changeViewMode(3);
 
     if (authBloc.state.authStatus == AuthStatus.notAuthenticated) return const ChangePassView();
     if (authBloc.state.authStatus == AuthStatus.authenticated) return const EventsView();

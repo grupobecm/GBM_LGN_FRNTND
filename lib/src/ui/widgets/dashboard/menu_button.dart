@@ -51,6 +51,7 @@ class _MenuButtonState extends State<MenuButton> {
 
   String selctRoute() {
     if (widget.text == 'Events') return Flurorouter.eventsRoute;
+    if (widget.text == 'Calendar') return Flurorouter.calendarRoute;
     // if (widget.text == 'Create Event') return Flurorouter.eventRoute;
     // if (widget.text == 'Update Event') return Flurorouter.updatEeventRoute;
 

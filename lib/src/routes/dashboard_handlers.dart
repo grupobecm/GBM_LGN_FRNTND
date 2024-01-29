@@ -14,19 +14,27 @@ class DashboardHandlers {
     return null;
   });
 
-  static Handler event = Handler(handlerFunc: (context, parameters) {
+  static Handler createEvent = Handler(handlerFunc: (context, parameters) {
     final AuthBloc authBloc = context!.watch<AuthBloc>();
 
     if (authBloc.state.authStatus == AuthStatus.notAuthenticated) return const LoginView();
-    if (authBloc.state.authStatus == AuthStatus.authenticated) return const EventView();
+    if (authBloc.state.authStatus == AuthStatus.authenticated) return const CreateEvent();
     return null;
   });
 
-  static Handler updateEvent = Handler(handlerFunc: (context, parameters) {
+  static Handler eventDetails = Handler(handlerFunc: (context, parameters) {
     final AuthBloc authBloc = context!.watch<AuthBloc>();
 
     if (authBloc.state.authStatus == AuthStatus.notAuthenticated) return const LoginView();
-    if (authBloc.state.authStatus == AuthStatus.authenticated) return const UpdateEventView();
+    if (authBloc.state.authStatus == AuthStatus.authenticated) return const EventDetails();
+    return null;
+  });
+
+  static Handler calendar = Handler(handlerFunc: (context, parameters) {
+    final AuthBloc authBloc = context!.watch<AuthBloc>();
+
+    if (authBloc.state.authStatus == AuthStatus.notAuthenticated) return const LoginView();
+    if (authBloc.state.authStatus == AuthStatus.authenticated) return const CalendarView();
     return null;
   });
 }

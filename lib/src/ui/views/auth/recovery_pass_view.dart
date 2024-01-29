@@ -9,19 +9,23 @@ import 'package:boletera/src/ui/widgets/widgets.dart';
 import 'package:boletera/src/blocs/auth/auth_bloc.dart';
 
 class RecoveryPassView extends StatelessWidget {
+  static final GlobalKey<FormState> _recoveryCodeFormKey = GlobalKey<FormState>();
   const RecoveryPassView({super.key});
 
   @override
   Widget build(BuildContext context) {
     final AuthBloc authBloc = context.watch<AuthBloc>();
 
+    authBloc.resetFormKey(_recoveryCodeFormKey, 3);
+
     return Center(
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: 370),
         child: Form(
-          key: authBloc.recoveryCodeFormKey,
+          key: authBloc.formKey,
           child: Column(
             children: [
+              const SizedBox(height: 40),
               Text(
                 AppLocalizations.of(context)!.resetPassSubtitle,
                 style: Theme.of(context).textTheme.bodySmall,
@@ -39,14 +43,14 @@ class RecoveryPassView extends StatelessWidget {
                   CustomOutlinedButton(
                     text: AppLocalizations.of(context)!.cancelButton,
                     onPressed: () {
-                      Navigator.pushNamed(context, Flurorouter.loginRoute);
+                      Navigator.pushReplacementNamed(context, Flurorouter.loginRoute);
                     },
                   ),
                   CustomGradientButton(
                     text: AppLocalizations.of(context)!.aceptButton,
                     onPressed: () async {
                       if (await authBloc.sendResetCodeEmail(context) == true) {
-                        Navigator.pushNamed(context, Flurorouter.changePassRoute);
+                        Navigator.pushReplacementNamed(context, Flurorouter.changePassRoute);
                       }
                     },
                   ),

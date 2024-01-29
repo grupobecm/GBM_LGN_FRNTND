@@ -1,39 +1,106 @@
+// ignore_for_file: unused_element
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 
+import 'package:boletera/src/blocs/blocs.dart';
+import 'package:boletera/src/routes/router.dart';
+import 'package:boletera/src/services/services.dart';
 import 'package:boletera/src/ui/widgets/widgets.dart';
-import 'package:boletera/src/blocs/auth/auth_bloc.dart';
+
 
 class LoginView extends StatelessWidget {
-  const LoginView({super.key});
+  const LoginView({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final AuthBloc authBloc = context.watch<AuthBloc>();
 
-    return ModalProgressHUD(
-      inAsyncCall: authBloc.state.isLoading,
-      color: Theme.of(context).colorScheme.shadow,
-      progressIndicator: CircularProgressIndicator(color: Theme.of(context).colorScheme.secondaryContainer),
-      opacity: 0.15,
-      child: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 370),
-          child: const Form(
+    return Center(
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 370),
+        child: const SingleChildScrollView(
+          physics: NeverScrollableScrollPhysics(),
+          child: Form(
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 CustomTitle(),
-                SizedBox(height: 40),
+                SizedBox(height: 60),
                 SocialButtons(),
                 SizedBox(height: 40),
-                LoginForm(),
+                _LoginForm(),
                 SizedBox(height: 20),
                 BottomLinks(),
+                SizedBox(height: 60),
               ],
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _LoginForm extends StatelessWidget {
+  static final GlobalKey<FormState> _loginFormKey = GlobalKey<FormState>();
+  const _LoginForm({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final AuthBloc authBloc = context.watch<AuthBloc>();
+    final MessageCubit messageCubit = context.watch<MessageCubit>();
+
+    authBloc.resetFormKey(_loginFormKey, 1);
+
+    return Form(
+      key: authBloc.formKey,
+      child: Column(
+        children: [
+          Text(
+            AppLocalizations.of(context)!.authSubtitle,
+            style: Theme.of(context).textTheme.labelMedium,
+          ),
+          const SizedBox(height: 40),
+          CustomFormField(
+            text: AppLocalizations.of(context)!.loginForm1,
+            validationTipe: 1,
+            onChanged: (value) => authBloc.changeLoginData(value, null),
+          ),
+          CustomFormField(
+            text: AppLocalizations.of(context)!.loginForm2,
+            visibilityIcon: true,
+            validationTipe: 2,
+            onChanged: (value) => authBloc.changeLoginData(null, value),
+          ),
+          CustomGradientButton(
+            text: AppLocalizations.of(context)!.loginButton,
+            isLong: true,
+            onPressed: () async {
+              final AppLocalizations appLocalizations = AppLocalizations.of(context)!;
+              final ScaffoldMessengerState scaffoldMessenger = ScaffoldMessenger.of(context)..hideCurrentSnackBar();
+
+              await authBloc.startSession(context);
+
+              final bool isAuthenticated = await authBloc.isAuthenticated();
+
+              if (messageCubit.state.code.isNotEmpty) {
+                messageCubit.getMessageString(appLocalizations);
+                scaffoldMessenger.showSnackBar(
+                  messageCubit.generateMessage(
+                    isAuthenticated ? ContentType.success : ContentType.failure,
+                  ),
+                );
+              }
+
+              messageCubit.resetMessage();
+              if (isAuthenticated) NavigationService.replaceTo(Flurorouter.eventsRoute);
+            },
+          ),
+        ],
       ),
     );
   }

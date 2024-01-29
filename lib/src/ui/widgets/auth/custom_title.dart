@@ -7,7 +7,7 @@ class CustomTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 40),
+      padding: const EdgeInsets.only(top: 0),
       child: FittedBox(
         fit: BoxFit.contain,
         child: Text(

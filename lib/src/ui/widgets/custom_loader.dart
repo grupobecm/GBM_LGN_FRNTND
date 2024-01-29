@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
-class LoaderView extends StatefulWidget {
-  const LoaderView({super.key});
+class CustomLoader extends StatefulWidget {
+  const CustomLoader({super.key});
 
   @override
-  State<LoaderView> createState() => _SplashLayoutState();
+  State<CustomLoader> createState() => _SplashLayoutState();
 }
 
-class _SplashLayoutState extends State<LoaderView> with TickerProviderStateMixin {
+class _SplashLayoutState extends State<CustomLoader> with TickerProviderStateMixin {
   late AnimationController _animationController;
 
   @override

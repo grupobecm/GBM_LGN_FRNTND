@@ -17,22 +17,26 @@ class Flurorouter {
 
   // Dashboard Routes Declaration
   static String eventsRoute = '/events';
+  static String calendarRoute = '/calendar';
 
   // Event Route
-  static String eventRoute = '/events/create';
-  static String updatEeventRoute = '/events/update';
+  static String createEventRoute = '/events/create';
+  static String eventDetailsRoute = '/events/details';
 
   static void configureRoutes() {
     // Auth Routes Definition
     router.define(loginRoute, handler: AuthHandlers.login, transitionType: TransitionType.fadeIn);
     router.define(registerRoute, handler: AuthHandlers.register, transitionType: TransitionType.fadeIn);
-    router.define(changePassRoute, handler: AuthHandlers.changePass, transitionType: TransitionType.fadeIn);
+    router.define(changePassRoute, handler: AuthHandlers.changePass, transitionType: TransitionType.fadeIn, );
     router.define(recoveryPassRoute, handler: AuthHandlers.recoveryPass, transitionType: TransitionType.fadeIn);
 
-    // Event Routes Definition
+    // Dashboard Routes Definition
     router.define(eventsRoute, handler: DashboardHandlers.dashboard, transitionType: TransitionType.fadeIn);
-    router.define(eventRoute, handler: DashboardHandlers.event, transitionType: TransitionType.fadeIn);
-    router.define(updatEeventRoute, handler: DashboardHandlers.updateEvent, transitionType: TransitionType.fadeIn);
+    router.define(calendarRoute, handler: DashboardHandlers.calendar, transitionType: TransitionType.fadeIn);
+    
+    // Event Routes Definition
+    router.define(createEventRoute , handler: DashboardHandlers.createEvent, transitionType: TransitionType.fadeIn);
+    router.define(eventDetailsRoute, handler: DashboardHandlers.eventDetails, transitionType: TransitionType.fadeIn);
 
     // 404
     router.notFoundHandler = NoPageFoundHandlers.noPageFound;

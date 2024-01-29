@@ -18,10 +18,7 @@ class DashboardLayout extends StatelessWidget {
       appBar: AppBar(
         title: Row(
           children: [
-            Image.asset(
-              'assets/images/logo_black.png',
-              scale: 13,
-            ),
+            const LogoImage(scale: 17.5, horizontalPadding: false),
             const SizedBox(width: 10),
             Container(
               height: 55,

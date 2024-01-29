@@ -10,7 +10,15 @@ class EventsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ScrollController scrollController = ScrollController();
-    final List<String> list = ['F1 Fanzone Jalisco Patrocinadores', 'Evento 2', 'Evento 3', 'Evento 4', 'Evento 5', 'Evento 6', 'Evento 7'];
+    final List<String> list = [
+      'F1 Fanzone Jalisco Patrocinadores',
+      'Evento 2',
+      'Evento 3',
+      'Evento 4',
+      'Evento 5',
+      'Evento 6',
+      'Evento 7'
+    ];
 
     return Column(
       children: [
@@ -18,18 +26,20 @@ class EventsView extends StatelessWidget {
         Expanded(
           child: GridView.extent(
             controller: scrollController,
-            childAspectRatio: 370 / 300,
-            maxCrossAxisExtent: 370,
-            crossAxisSpacing: 30,
-            mainAxisSpacing: 20,
+            childAspectRatio: 450 / 300, // Ajusta este valor según tus necesidades
+            maxCrossAxisExtent: 600,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
             padding: const EdgeInsets.all(20),
-            children: List.generate(list.length, (index) => EventCard(title: list[index])),
+            children: List.generate(
+                list.length,
+                (index) => EventCard(title: list[index])),
           ),
         ),
       ],
     );
   }
-}
+}// TODO: Crear vista Mobile
 
 class _HomeHeader extends StatelessWidget {
   @override
@@ -56,10 +66,12 @@ class _HomeHeader extends StatelessWidget {
         ),
         ElevatedButton(
           style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Theme.of(context).colorScheme.secondary)),
-          onPressed: () => NavigationService.replaceTo(Flurorouter.eventRoute),
+          onPressed: () => NavigationService.replaceTo(Flurorouter.createEventRoute),
           child: const Icon(Icons.add),
         ),
-        const SizedBox(width: 50,)
+        const SizedBox(
+          width: 50,
+        )
       ],
     );
   }

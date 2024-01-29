@@ -8,8 +8,8 @@ class BottomLinks extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Column(
-      // mainAxisAlignment: ,
       children: [
         TextButton(
           style: const ButtonStyle(overlayColor: MaterialStatePropertyAll(Colors.transparent)),
@@ -17,7 +17,7 @@ class BottomLinks extends StatelessWidget {
             AppLocalizations.of(context)!.loginForgotPass,
             style: Theme.of(context).textTheme.labelMedium,
           ),
-          onPressed: () => Navigator.pushNamed(context, Flurorouter.recoveryPassRoute),
+          onPressed: () => Navigator.pushReplacementNamed(context, Flurorouter.recoveryPassRoute),
         ),
         const SizedBox(height: 30),
         Row(
@@ -33,7 +33,7 @@ class BottomLinks extends StatelessWidget {
                 AppLocalizations.of(context)!.loginNewAcount,
                 style: Theme.of(context).textTheme.titleSmall,
               ),
-              onPressed: () => Navigator.pushNamed(context, Flurorouter.registerRoute),
+              onPressed: () => Navigator.pushReplacementNamed(context, Flurorouter.registerRoute),
             ),
           ],
         ),

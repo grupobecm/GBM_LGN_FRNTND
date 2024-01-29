@@ -12,10 +12,12 @@ part 'auth_event.dart';
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
-  final GlobalKey<FormState> registerFormKey = GlobalKey<FormState>();
-  final GlobalKey<FormState> recoveryCodeFormKey = GlobalKey<FormState>();
-  final GlobalKey<FormState> changePassFormKey = GlobalKey<FormState>();
+  late GlobalKey<FormState> formKey;
+  // late GlobalKey<FormState> loginFormKey;
+  // late GlobalKey<FormState> registerFormKey;
+  // late GlobalKey<FormState> recoveryCodeFormKey;
+  // late GlobalKey<FormState> changePassFormKey;
+  final ScrollController scrollController = ScrollController();
 
   final MessageCubit _messageCubit;
 
@@ -27,12 +29,36 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<GetPassCode>((event, emit) => emit(state.copyWith(changePassCode: event.changePassCode)));
     on<LoadingProcess>((event, emit) => emit(state.copyWith(isLoading: event.isLoading)));
     on<VerifyAuth>((event, emit) => emit(state.copyWith(authStatus: event.authStatus)));
+    on<SelectViewMode>((event, emit) => emit(state.copyWith(viewMode: event.viewMode)));
     isAuthenticated();
   }
 
   void resetState() {
     add(const LogIn('', ''));
     add(const GetPassCode([0, 0, 0, 0, 0, 0]));
+  }
+
+  void resetFormKey(GlobalKey<FormState> key, int formNum) {
+    formKey = key;
+    // switch (formNum) {
+    //   case 1:
+    //     loginFormKey = key;
+    //     break;
+    //   case 2:
+    //     registerFormKey = key;
+    //     break;
+    //   case 3:
+    //     recoveryCodeFormKey = key;
+    //     break;
+    //   case 4:
+    //     changePassFormKey = key;
+    //     break;
+    //   default:
+    // }
+  }
+
+  void changeViewMode(int mode) {
+    add(SelectViewMode(mode));
   }
 
   void changeLoginData(String? email, String? password) {
@@ -70,7 +96,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   Future<void> startSession(BuildContext context) async {
-    if (!loginFormKey.currentState!.validate()) {
+    if (!formKey.currentState!.validate()) {
       return;
     }
 
@@ -107,7 +133,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   Future<bool> sendResetCodeEmail(BuildContext context) async {
-    if (!recoveryCodeFormKey.currentState!.validate()) {
+    if (!formKey.currentState!.validate()) {
       return false;
     }
 
@@ -135,7 +161,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   Future<bool> setNewPass(BuildContext context) async {
-    if (!changePassFormKey.currentState!.validate()) {
+    if (!formKey.currentState!.validate()) {
       return false;
     }
 

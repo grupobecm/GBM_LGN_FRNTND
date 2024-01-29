@@ -32,7 +32,7 @@ class _CustomFormFieldState extends State<CustomFormField> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 30),
+      padding: const EdgeInsets.only(bottom: 15),
       child: TextFormField(
         decoration: customDecoration(widget.text, context),
         cursorColor: Colors.black,
