@@ -34,5 +34,10 @@
     "resetPassCodeSubtitle": "Ingresa el código de verificación que enviamos a tu correo",
     "confirmPass": "Confirmar Contraseña",
 
-    "menuOne": "Eventos"
+    "menuOne": "Eventos",
+
+    "stepOne": "Informacion de Evento",
+    "stepTwo": "Areas del Evento",
+    "stepThree": "Fases del Evento",
+    "stepFour": "Lineup del Evento"
 }

@@ -14,7 +14,7 @@ import 'package:boletera/src/theme/color_schemas.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // setupLocator(); //TODO: Revisar tema de las Global keys
+  // setupLocator();
   // await dotenv.load(fileName: ".env");
   await servicesLocatorInit();
 

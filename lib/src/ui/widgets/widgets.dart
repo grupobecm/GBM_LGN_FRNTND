@@ -19,5 +19,6 @@ export 'package:boletera/src/ui/widgets/dashboard/menu_button.dart';
 // Event Widgets
 export 'package:boletera/src/ui/widgets/events/event_form.dart';
 export 'package:boletera/src/ui/widgets/events/event_calendar.dart';
+export 'package:boletera/src/ui/widgets/events/custom_stepper.dart';
 export 'package:boletera/src/ui/widgets/events/custom_event_card.dart';
 export 'package:boletera/src/ui/widgets/events/underline_form_field.dart';

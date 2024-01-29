@@ -32,14 +32,15 @@ class EventsView extends StatelessWidget {
             mainAxisSpacing: 10,
             padding: const EdgeInsets.all(20),
             children: List.generate(
-                list.length,
-                (index) => EventCard(title: list[index])),
+              list.length,
+              (index) => EventCard(title: list[index]),
+            ),
           ),
         ),
       ],
     );
   }
-}// TODO: Crear vista Mobile
+} // TODO: Crear vista Mobile
 
 class _HomeHeader extends StatelessWidget {
   @override

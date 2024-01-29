@@ -76,7 +76,6 @@ class _EventCardState extends State<EventCard> {
                 flex: 2,
                 child: SizedBox(
                   child: Image.asset(
-                    //TODO: Revisar que no sobreponga en los textos.
                     'assets/images/no_event_image.png',
                     fit: BoxFit.cover,
                   ),
