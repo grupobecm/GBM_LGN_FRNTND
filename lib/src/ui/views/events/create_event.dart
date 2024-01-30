@@ -1,3 +1,4 @@
+import 'package:boletera/src/ui/views/events/event_general_data_view.dart';
 import 'package:flutter/material.dart';
 
 import 'package:boletera/src/ui/widgets/widgets.dart';
@@ -28,11 +29,22 @@ class _CreateEventState extends State<CreateEvent> {
           width: size.width * 0.3,
           child: SingleChildScrollView(
             physics: const NeverScrollableScrollPhysics(),
-            child: CustomStepper(index: activeStep),
+            child: RepaintBoundary(child: CustomStepper(index: activeStep)),
           ),
         ),
-        Expanded(
-          child: Container(),
+        const Expanded(
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: 40, horizontal: 40),
+            child: Card(
+              elevation: 5,
+              child: Center(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 30),
+                  child: EventGeneralDataView(),
+                ),
+              ),
+            ),
+          ),
         )
       ],
     );

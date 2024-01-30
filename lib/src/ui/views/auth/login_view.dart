@@ -54,7 +54,7 @@ class _LoginForm extends StatelessWidget {
     final AuthBloc authBloc = context.watch<AuthBloc>();
     final MessageCubit messageCubit = context.watch<MessageCubit>();
 
-    authBloc.resetFormKey(_loginFormKey, 1);
+    authBloc.resetFormKey(_loginFormKey);
 
     return Form(
       key: authBloc.formKey,

@@ -1,4 +1,6 @@
+import 'package:boletera/src/blocs/blocs.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
 import 'package:boletera/src/services/services.dart';
@@ -14,36 +16,39 @@ class DashboardLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Row(
+    return BlocProvider(
+      create: (_) => getIt<EventsBloc>(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Row(
+            children: [
+              const LogoImage(scale: 17.5, horizontalPadding: false),
+              const SizedBox(width: 10),
+              Container(
+                height: 55,
+                width: 1,
+                color: Theme.of(context).dividerColor,
+              ),
+            ],
+          ),
+          elevation: 5,
+        ),
+        body: Column(
           children: [
-            const LogoImage(scale: 17.5, horizontalPadding: false),
-            const SizedBox(width: 10),
-            Container(
-              height: 55,
-              width: 1,
-              color: Theme.of(context).dividerColor,
+            const _MultiColorBar(),
+            Expanded(
+              child: Row(
+                children: [
+                  const LateralMenu(),
+                  GraphQLProvider(
+                    client: GraphQLClients.novekClient,
+                    child: Expanded(child: child),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
-        elevation: 5,
-      ),
-      body: Column(
-        children: [
-          const _MultiColorBar(),
-          Expanded(
-            child: Row(
-              children: [
-                const LateralMenu(),
-                GraphQLProvider(
-                  client: GraphQLClients.novekClient,
-                  child: Expanded(child: child),
-                ),
-              ],
-            ),
-          ),
-        ],
       ),
     );
   }

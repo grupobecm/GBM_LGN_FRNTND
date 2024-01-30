@@ -16,7 +16,7 @@ class RecoveryPassView extends StatelessWidget {
   Widget build(BuildContext context) {
     final AuthBloc authBloc = context.watch<AuthBloc>();
 
-    authBloc.resetFormKey(_recoveryCodeFormKey, 3);
+    authBloc.resetFormKey(_recoveryCodeFormKey);
 
     return Center(
       child: ConstrainedBox(

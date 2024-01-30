@@ -18,7 +18,7 @@ class RegisterView extends StatelessWidget {
     final AuthBloc authBloc = context.watch<AuthBloc>();
     final GlobalKey<FormState> registerFormKey = GlobalKey<FormState>();
 
-    authBloc.resetFormKey(registerFormKey, 2);
+    authBloc.resetFormKey(registerFormKey);
 
     return Center(
       child: ConstrainedBox(

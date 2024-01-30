@@ -37,7 +37,7 @@ class _NewPassForm extends StatelessWidget {
     final AuthBloc authBloc = context.watch<AuthBloc>();
     final GlobalKey<FormState> changePassFormKey = GlobalKey<FormState>();
 
-    authBloc.resetFormKey(changePassFormKey, 4);
+    authBloc.resetFormKey(changePassFormKey);
 
     return Form(
       key: authBloc.formKey,

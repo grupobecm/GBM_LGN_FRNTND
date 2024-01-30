@@ -13,10 +13,6 @@ part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   late GlobalKey<FormState> formKey;
-  // late GlobalKey<FormState> loginFormKey;
-  // late GlobalKey<FormState> registerFormKey;
-  // late GlobalKey<FormState> recoveryCodeFormKey;
-  // late GlobalKey<FormState> changePassFormKey;
   final ScrollController scrollController = ScrollController();
 
   final MessageCubit _messageCubit;
@@ -38,23 +34,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     add(const GetPassCode([0, 0, 0, 0, 0, 0]));
   }
 
-  void resetFormKey(GlobalKey<FormState> key, int formNum) {
+  void resetFormKey(GlobalKey<FormState> key) {
     formKey = key;
-    // switch (formNum) {
-    //   case 1:
-    //     loginFormKey = key;
-    //     break;
-    //   case 2:
-    //     registerFormKey = key;
-    //     break;
-    //   case 3:
-    //     recoveryCodeFormKey = key;
-    //     break;
-    //   case 4:
-    //     changePassFormKey = key;
-    //     break;
-    //   default:
-    // }
   }
 
   void changeViewMode(int mode) {

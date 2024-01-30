@@ -1,21 +1,24 @@
 import 'package:boletera/src/models/area_model.dart';
 
 class Event {
-  final int? eventID;
-  final String? eventName;
-  final String? description;
-  final DateTime? startDate;
-  final DateTime? endDate;
-  final DateTime? dateRegister;
-  final String? location;
-  final String? country;
-  final String? status;
-  final String? image;
-  final String? bannerImage;
-  final String? type;
-  final bool? isForAdult;
-  final List<EventArea>? areas;
-  final List<Map<String, String>>? category;
+  final int eventID;
+  final String eventName;
+  final String description;
+  final String startDate;
+  final String endDate;
+  final String dateRegister;
+  // final DateTime startDate;
+  // final DateTime endDate;
+  // final DateTime dateRegister;
+  final String location;
+  final String country;
+  final String status;
+  final String image;
+  final String bannerImage;
+  final String type;
+  final bool isForAdult;
+  final List<EventArea> areas;
+  final List<Map<String, String>> category;
 
   const Event({
     required this.eventID,
@@ -35,13 +38,34 @@ class Event {
     required this.category,
   });
 
+  // const Event({
+  //   this.eventID,
+  //   this.eventName,
+  //   this.description,
+  //   this.startDate,
+  //   this.endDate,
+  //   this.dateRegister,
+  //   this.location,
+  //   this.country,
+  //   this.status,
+  //   this.image,
+  //   this.bannerImage,
+  //   this.type,
+  //   this.isForAdult,
+  //   this.areas,
+  //   this.category,
+  // });
+
   Event copyWith({
     final int? eventID,
     final String? eventName,
     final String? description,
-    final DateTime? startDate,
-    final DateTime? endDate,
-    final DateTime? dateRegister,
+    final String? startDate,
+    final String? endDate,
+    final String? dateRegister,
+    // final DateTime? startDate,
+    // final DateTime? endDate,
+    // final DateTime? dateRegister,
     final String? location,
     final String? country,
     final String? status,
@@ -122,4 +146,22 @@ class Event {
         'areas': areas,
         'category': category,
       };
+
+  static Map<String, dynamic> defaultData = {
+    'eventID': 0,
+    'eventName': '',
+    'description': '',
+    'startDate': '',
+    'endDate': '',
+    'dateRegister': '',
+    'location': '',
+    'country': '',
+    'status': '',
+    'image': '',
+    'bannerImage': '',
+    'type': '',
+    'isForAdult': false,
+    'areas': [],
+    'category': [],
+  };
 }
