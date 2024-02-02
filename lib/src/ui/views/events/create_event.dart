@@ -54,15 +54,29 @@ class _DesktopView extends StatelessWidget {
                   child: CustomStepper(index: activeStep, direction: Axis.vertical),
                 ),
               ),
-              const Expanded(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 40, horizontal: 40),
-                  child: SingleChildScrollView(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-                      child: EventGeneralDataView(),
+              Expanded(
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Theme.of(context).colorScheme.inverseSurface.withOpacity(0.1),
+                          ),
+                          child: const SingleChildScrollView(
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+                              child: EventGeneralDataView(),
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
+                    const ButtonsPanel(),
+                    const SizedBox(height: 20)
+                  ],
                 ),
               )
             ],
@@ -96,20 +110,31 @@ class _MobileView extends StatelessWidget {
                 width: size.width * 0.3,
                 child: SingleChildScrollView(
                   physics: const NeverScrollableScrollPhysics(),
-                  child: CustomStepper(index: activeStep, direction: Axis.horizontal,),
+                  child: CustomStepper(
+                    index: activeStep,
+                    direction: Axis.horizontal,
+                  ),
                 ),
               ),
-              const Expanded(
+              Expanded(
                 child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 40, horizontal: 40),
-                  child: SingleChildScrollView(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-                      child: EventGeneralDataView(),
+                  padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Theme.of(context).colorScheme.inverseSurface.withOpacity(0.1),
+                    ),
+                    child: const SingleChildScrollView(
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+                        child: EventGeneralDataView(),
+                      ),
                     ),
                   ),
                 ),
-              )
+              ),
+              const ButtonsPanel(),
+              const SizedBox(height: 20)
             ],
           ),
         ),

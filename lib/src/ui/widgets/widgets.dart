@@ -3,6 +3,7 @@ export 'package:boletera/src/ui/widgets/custom_loader.dart';
 export 'package:boletera/src/ui/widgets/custom_checkbox.dart';
 export 'package:boletera/src/ui/widgets/custom_form_field.dart';
 export 'package:boletera/src/ui/widgets/custom_logo_image.dart';
+export 'package:boletera/src/ui/widgets/custom_image_picker.dart';
 export 'package:boletera/src/ui/widgets/custom_gradient_button.dart';
 export 'package:boletera/src/ui/widgets/custom_outlined_button.dart';
 export 'package:boletera/src/ui/widgets/custom_dropdown_button.dart';
@@ -20,6 +21,7 @@ export 'package:boletera/src/ui/widgets/dashboard/menu_button.dart';
 
 // Event Widgets
 export 'package:boletera/src/ui/widgets/events/event_form.dart';
+export 'package:boletera/src/ui/widgets/events/buttons_panel.dart';
 export 'package:boletera/src/ui/widgets/events/event_calendar.dart';
 export 'package:boletera/src/ui/widgets/events/custom_stepper.dart';
 export 'package:boletera/src/ui/widgets/events/custom_event_card.dart';

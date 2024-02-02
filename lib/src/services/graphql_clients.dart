@@ -48,4 +48,24 @@ class GraphQLClients {
       }
     }  
   """;
+
+  static const String createEvent = """
+    mutation CreateEvent(\$name: String!, \$description: String!, \$startDate: String!, \$endDate: String!, \$location: String!, \$country: String!) {
+      CreateEvent(
+        input: {
+            event_name: "\$name"
+            description: "Evento de test"
+            start_date: "2024-02-03T09:58:15.872Z"
+            end_date: "2024-02-20T09:58:15.872Z"
+            location: "Locasion test"
+            country: "México"
+            categories: 
+            is_for_adult: false
+            type: Private
+        }
+    ) {
+        _dummy
+    }
+    }  
+  """;
 }

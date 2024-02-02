@@ -30,6 +30,10 @@ class _EventGeneralDataViewState extends State<EventGeneralDataView> {
 
     eventsBloc.resetFormKey(_loginFormKey);
 
+    // DateTime now = DateTime.now();
+
+    // print(DateFormat("yyyy-MM-ddTHH:mm:ss.SSSZ").format(now.toUtc()));
+
     return Form(
       key: eventsBloc.formKey,
       child: Column(
@@ -102,15 +106,25 @@ class _EventGeneralDataViewState extends State<EventGeneralDataView> {
                   text: 'Visibilidad',
                 ),
               ),
+              SizedBox(width: 5),
               Expanded(
                 child: Column(
                   children: [
-                    CustomCheckbox(text: 'Boletera'),
-                    CustomCheckbox(text: 'Cashles'),
-                    CustomCheckbox(text: 'Ticketin'),
+                    CustomImagePicker(text: 'Imagen de Evento'),
+                    SizedBox(height: 5),
+                    CustomImagePicker(text: 'Banner de Evento'),
                   ],
                 ),
               ),
+              // Expanded(
+              //   child: Column(
+              //     children: [
+              //       CustomCheckbox(text: 'Boletera'),
+              //       CustomCheckbox(text: 'Cashless'),
+              //       CustomCheckbox(text: 'Ticketin'),
+              //     ],
+              //   ),
+              // ),
             ],
           ),
         ],
