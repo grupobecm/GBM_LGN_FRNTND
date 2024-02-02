@@ -1,3 +1,5 @@
+// ignore_for_file: unused_field
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -29,33 +31,87 @@ class _EventGeneralDataViewState extends State<EventGeneralDataView> {
     eventsBloc.resetFormKey(_loginFormKey);
 
     return Form(
+      key: eventsBloc.formKey,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Text('Datos del evento', style: Theme.of(context).textTheme.bodyMedium),
-          Divider(color: Theme.of(context).colorScheme.secondary),
+          Text('Datos del evento', style: Theme.of(context).textTheme.titleLarge),
+          Divider(color: Theme.of(context).colorScheme.secondary, thickness: 2, height: 60),
           Text('Tipo de evento', style: Theme.of(context).textTheme.bodySmall, textAlign: TextAlign.start),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Radio(
-                value: 0,
-                groupValue: 1,
-                onChanged: (value) => setState(() => _selectedValue = value as int),
-              ),
-              const Text('Opción 1'),
-              Radio(
                 value: 1,
-                groupValue: 1,
+                groupValue: _selectedValue,
+                activeColor: Theme.of(context).colorScheme.secondary,
                 onChanged: (value) => setState(() => _selectedValue = value as int),
               ),
-              const Text('Opción 1'),
+              const Expanded(child: Text('Público en general', overflow: TextOverflow.ellipsis)),
+              Radio(
+                value: 2,
+                groupValue: _selectedValue,
+                activeColor: Theme.of(context).colorScheme.secondary,
+                onChanged: (value) => setState(() => _selectedValue = value as int),
+              ),
+              const Expanded(child: Text('Solo mayores de edad', overflow: TextOverflow.ellipsis)),
             ],
           ),
           CustomFormField(
             text: 'Nombre del Evento *',
-            // validationTipe: 2,
             onChanged: (value) {},
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Expanded(
+                child: CustomFormField(
+                  text: 'Fecha y hora inicial *',
+                  visibilityIcon: true,
+                  fieldType: 3,
+                  onChanged: (value) {},
+                ),
+              ),
+              const SizedBox(width: 5),
+              Expanded(
+                child: CustomFormField(
+                  text: 'Fecha y hora final *',
+                  visibilityIcon: true,
+                  fieldType: 3,
+                  onChanged: (value) {},
+                ),
+              ),
+            ],
+          ),
+          CustomFormField(
+            text: 'Descripción',
+            fieldType: 4,
+            onChanged: (value) {},
+          ),
+          CustomFormField(
+            text: 'Ubicación',
+            onChanged: (value) {},
+          ),
+          const Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Expanded(
+                child: CustomDropdownButton(
+                  items: ['Privado', 'Publico'],
+                  text: 'Visibilidad',
+                ),
+              ),
+              Expanded(
+                child: Column(
+                  children: [
+                    CustomCheckbox(text: 'Boletera'),
+                    CustomCheckbox(text: 'Cashles'),
+                    CustomCheckbox(text: 'Ticketin'),
+                  ],
+                ),
+              ),
+            ],
           ),
         ],
       ),

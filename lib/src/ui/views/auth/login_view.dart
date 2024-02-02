@@ -67,13 +67,13 @@ class _LoginForm extends StatelessWidget {
           const SizedBox(height: 40),
           CustomFormField(
             text: AppLocalizations.of(context)!.loginForm1,
-            validationTipe: 1,
+            fieldType: 1,
             onChanged: (value) => authBloc.changeLoginData(value, null),
           ),
           CustomFormField(
             text: AppLocalizations.of(context)!.loginForm2,
             visibilityIcon: true,
-            validationTipe: 2,
+            fieldType: 2,
             onChanged: (value) => authBloc.changeLoginData(null, value),
           ),
           CustomGradientButton(

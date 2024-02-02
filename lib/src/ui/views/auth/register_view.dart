@@ -61,13 +61,13 @@ class _NewAcountForm extends StatelessWidget {
         const SizedBox(height: 40),
         CustomFormField(text: AppLocalizations.of(context)!.formName, onChanged: () {}),
         CustomFormField(text: AppLocalizations.of(context)!.formLastName, onChanged: () {}),
-        CustomFormField(text: AppLocalizations.of(context)!.formEmail, validationTipe: 1, onChanged: () {}),
+        CustomFormField(text: AppLocalizations.of(context)!.formEmail, fieldType: 1, onChanged: () {}),
         CustomFormField(
-            text: AppLocalizations.of(context)!.formPass, visibilityIcon: true, validationTipe: 2, onChanged: () {}),
+            text: AppLocalizations.of(context)!.formPass, visibilityIcon: true, fieldType: 2, onChanged: () {}),
         CustomFormField(
             text: AppLocalizations.of(context)!.formPassConfirm,
             visibilityIcon: true,
-            validationTipe: 2,
+            fieldType: 2,
             onChanged: () {}),
         Row(
           // TODO: Optimizar

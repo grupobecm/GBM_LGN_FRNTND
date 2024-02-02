@@ -1,3 +1,5 @@
+// ignore_for_file: unused_element
+
 import 'package:boletera/src/ui/views/events/event_general_data_view.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +17,7 @@ class _CreateEventState extends State<CreateEvent> {
 
   @override
   void initState() {
-    activeStep = 0;
+    activeStep = 1;
     super.initState();
   }
 
@@ -23,30 +25,95 @@ class _CreateEventState extends State<CreateEvent> {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
 
-    return Row(
-      children: [
-        SizedBox(
-          width: size.width * 0.3,
-          child: SingleChildScrollView(
-            physics: const NeverScrollableScrollPhysics(),
-            child: RepaintBoundary(child: CustomStepper(index: activeStep)),
-          ),
-        ),
-        const Expanded(
-          child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 40, horizontal: 40),
-            child: Card(
-              elevation: 5,
-              child: Center(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 30),
-                  child: EventGeneralDataView(),
+    return (size.width > 1000) ? _DesktopView(activeStep: activeStep) : _MobileView(activeStep: activeStep);
+  }
+}
+
+class _DesktopView extends StatelessWidget {
+  final int activeStep;
+  const _DesktopView({
+    super.key,
+    required this.activeStep,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
+
+    return Center(
+      child: ConstrainedBox(
+        constraints: BoxConstraints(maxHeight: size.height * 0.9, maxWidth: size.width * 0.8),
+        child: Card(
+          elevation: 5,
+          child: Row(
+            children: [
+              SizedBox(
+                width: size.width * 0.3,
+                child: SingleChildScrollView(
+                  physics: const NeverScrollableScrollPhysics(),
+                  child: CustomStepper(index: activeStep, direction: Axis.vertical),
                 ),
               ),
-            ),
+              const Expanded(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 40, horizontal: 40),
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                      child: EventGeneralDataView(),
+                    ),
+                  ),
+                ),
+              )
+            ],
           ),
-        )
-      ],
+        ),
+      ),
+    );
+  }
+}
+
+class _MobileView extends StatelessWidget {
+  final int activeStep;
+  const _MobileView({
+    super.key,
+    required this.activeStep,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
+
+    return Center(
+      child: ConstrainedBox(
+        constraints: BoxConstraints(maxHeight: size.height * 0.9, maxWidth: size.width * 0.8),
+        child: Card(
+          elevation: 5,
+          child: Column(
+            children: [
+              const SizedBox(height: 40),
+              SizedBox(
+                width: size.width * 0.3,
+                child: SingleChildScrollView(
+                  physics: const NeverScrollableScrollPhysics(),
+                  child: CustomStepper(index: activeStep, direction: Axis.horizontal,),
+                ),
+              ),
+              const Expanded(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 40, horizontal: 40),
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                      child: EventGeneralDataView(),
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

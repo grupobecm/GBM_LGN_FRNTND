@@ -4,12 +4,12 @@ class Event {
   final int eventID;
   final String eventName;
   final String description;
-  final String startDate;
-  final String endDate;
-  final String dateRegister;
-  // final DateTime startDate;
-  // final DateTime endDate;
-  // final DateTime dateRegister;
+  // final String startDate;
+  // final String endDate;
+  // final String dateRegister;
+  final DateTime startDate;
+  final DateTime endDate;
+  final DateTime dateRegister;
   final String location;
   final String country;
   final String status;
@@ -60,12 +60,12 @@ class Event {
     final int? eventID,
     final String? eventName,
     final String? description,
-    final String? startDate,
-    final String? endDate,
-    final String? dateRegister,
-    // final DateTime? startDate,
-    // final DateTime? endDate,
-    // final DateTime? dateRegister,
+    // final String? startDate,
+    // final String? endDate,
+    // final String? dateRegister,
+    final DateTime? startDate,
+    final DateTime? endDate,
+    final DateTime? dateRegister,
     final String? location,
     final String? country,
     final String? status,

@@ -4,7 +4,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CustomStepper extends StatelessWidget {
   final int index;
-  const CustomStepper({super.key, required this.index});
+  final Axis direction;
+
+  const CustomStepper({super.key, required this.index, required this.direction});
 
   @override
   Widget build(BuildContext context) {
@@ -16,9 +18,9 @@ class CustomStepper extends StatelessWidget {
     ];
 
     return EasyStepper(
-      activeStep: 1,
+      activeStep: index,
       stepShape: StepShape.circle,
-      direction: Axis.vertical,
+      direction: direction,
       unreachedStepBorderColor: Theme.of(context).colorScheme.secondary,
       activeStepBorderColor: Theme.of(context).colorScheme.secondary,
       finishedStepBorderColor: Theme.of(context).colorScheme.secondary,
@@ -36,6 +38,7 @@ class CustomStepper extends StatelessWidget {
       disableScroll: true,
       stepRadius: 25,
       borderThickness: 4,
+      fitWidth: false,
       lineStyle: LineStyle(
         lineType: LineType.normal,
         activeLineColor: Theme.of(context).colorScheme.secondary,
@@ -48,7 +51,10 @@ class CustomStepper extends StatelessWidget {
       ),
       steps: List.generate(
         list.length,
-        (index) => customStep(list[index]['icon'], list[index]['title']),
+        (index) => customStep(
+          list[index]['icon'],
+          list[index]['title'],
+        ),
       ),
     );
   }
@@ -58,6 +64,8 @@ class CustomStepper extends StatelessWidget {
       icon: Icon(icon),
       finishIcon: const Icon(Icons.check),
       title: title,
+      enabled: true,
+      customTitle: (direction == Axis.horizontal) ? Text(title, softWrap: true, textAlign: TextAlign.center) : null,
     );
   }
 }

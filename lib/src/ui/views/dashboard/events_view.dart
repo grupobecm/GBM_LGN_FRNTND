@@ -23,6 +23,7 @@ class EventsView extends StatelessWidget {
     return Column(
       children: [
         _HomeHeader(),
+        const SizedBox(height: 10),
         Expanded(
           child: GridView.extent(
             controller: scrollController,
@@ -45,34 +46,32 @@ class EventsView extends StatelessWidget {
 class _HomeHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Column(
       children: [
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(height: 30),
-              Text('Mis eventos', style: Theme.of(context).textTheme.displayMedium),
-              const SizedBox(height: 20),
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text('En venta(0)'),
-                  Text('Pasados(0)'),
-                  Text('Todos(1)'),
-                ],
-              ),
-            ],
-          ),
+        const SizedBox(height: 20),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            const Spacer(flex: 3,),
+            Center(child: Text('Mis eventos', style: Theme.of(context).textTheme.displayMedium)),
+            const Spacer(),
+            ElevatedButton(
+              style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Theme.of(context).colorScheme.secondary)),
+              onPressed: () => NavigationService.replaceTo(Flurorouter.createEventRoute),
+              child: const Icon(Icons.add),
+            ),
+            const Spacer()
+          ],
         ),
-        ElevatedButton(
-          style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Theme.of(context).colorScheme.secondary)),
-          onPressed: () => NavigationService.replaceTo(Flurorouter.createEventRoute),
-          child: const Icon(Icons.add),
+        const SizedBox(height: 20),
+        const Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Text('En venta(0)'),
+            Text('Pasados(0)'),
+            Text('Todos(1)'),
+          ],
         ),
-        const SizedBox(
-          width: 50,
-        )
       ],
     );
   }

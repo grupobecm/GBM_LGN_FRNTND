@@ -1,9 +1,11 @@
 // General Widgets
 export 'package:boletera/src/ui/widgets/custom_loader.dart';
+export 'package:boletera/src/ui/widgets/custom_checkbox.dart';
 export 'package:boletera/src/ui/widgets/custom_form_field.dart';
 export 'package:boletera/src/ui/widgets/custom_logo_image.dart';
 export 'package:boletera/src/ui/widgets/custom_gradient_button.dart';
 export 'package:boletera/src/ui/widgets/custom_outlined_button.dart';
+export 'package:boletera/src/ui/widgets/custom_dropdown_button.dart';
 
 // Auth Widgets
 export 'package:boletera/src/ui/widgets/auth/custom_title.dart';

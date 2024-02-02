@@ -46,14 +46,14 @@ class _NewPassForm extends StatelessWidget {
           CustomFormField(
             text: AppLocalizations.of(context)!.loginForm2,
             visibilityIcon: true,
-            validationTipe: 2,
+            fieldType: 2,
             // provider: loginFormProvider,
             onChanged: () {},
           ),
           CustomFormField(
             text: AppLocalizations.of(context)!.confirmPass,
             visibilityIcon: true,
-            validationTipe: 2,
+            fieldType: 2,
             isConfirmPass: true,
             // provider: loginFormProvider,
             onChanged: () {},

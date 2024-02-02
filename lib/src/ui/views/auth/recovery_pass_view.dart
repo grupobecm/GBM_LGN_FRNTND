@@ -33,7 +33,7 @@ class RecoveryPassView extends StatelessWidget {
               const SizedBox(height: 40),
               CustomFormField(
                 text: AppLocalizations.of(context)!.loginForm1,
-                validationTipe: 1,
+                fieldType: 1,
                 onChanged: (value) => authBloc.changeLoginData(value, null),
               ),
               const SizedBox(height: 40),
