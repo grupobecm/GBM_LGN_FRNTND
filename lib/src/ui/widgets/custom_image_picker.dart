@@ -15,10 +15,12 @@ class CustomImagePicker extends StatefulWidget {
 }
 
 class _CustomImagePickerState extends State<CustomImagePicker> {
-  late DropzoneViewController controller;
+  late DropzoneViewController _controller;
+  late String? _imageName;
 
   @override
   void initState() {
+    _imageName = null;
     super.initState();
   }
 
@@ -39,7 +41,14 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Icon(Icons.file_upload_outlined),
-                Text(widget.text),
+                Expanded(
+                  child: Center(
+                    child: Text(
+                      _imageName == null ? widget.text : _imageName!,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
@@ -49,13 +58,17 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
           child: DropzoneView(
             operation: DragOperation.copy,
             cursor: CursorType.grab,
-            onCreated: (ctrl) => controller = ctrl,
+            onCreated: (ctrl) => _controller = ctrl,
             onLoaded: () => print('Zone, 1 loaded'),
             onError: (err) => print('Zone, 1 error: $err'),
             onDrop: (event) async {
               final name = event.name;
 
-              controller.getFileData(event);
+              _controller.getFileData(event);
+
+              setState(() {
+                _imageName = name;
+              }); // TODO: Ajustar Image Picker
 
               print(name);
               print(event.type);

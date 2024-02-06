@@ -50,22 +50,24 @@ class GraphQLClients {
   """;
 
   static const String createEvent = """
-    mutation CreateEvent(\$name: String!, \$description: String!, \$startDate: String!, \$endDate: String!, \$location: String!, \$country: String!) {
+    mutation CreateEvent(\$name: String!, \$description: String!, \$startDate: String!, \$endDate: String!, \$location: String!, \$isForAdult: bool!, \$type: Sring!, \$image: dynamic, \$banner: dynamic) {
       CreateEvent(
         input: {
             event_name: "\$name"
-            description: "Evento de test"
-            start_date: "2024-02-03T09:58:15.872Z"
-            end_date: "2024-02-20T09:58:15.872Z"
-            location: "Locasion test"
+            description: "\$description"
+            start_date: "\$startDate"
+            end_date: "\$endDate"
+            location: "\$location"
             country: "México"
-            categories: 
-            is_for_adult: false
-            type: Private
+            categories: boletera
+            is_for_adult: \$isForAdult
+            type: Private \$type
+            image: \$image
+            image_banner: \$banner
         }
-    ) {
+      ) {
         _dummy
-    }
+      }
     }  
   """;
 }
