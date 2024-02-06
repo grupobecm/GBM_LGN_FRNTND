@@ -14,5 +14,7 @@ Future<void> servicesLocatorInit() async {
   getIt.registerSingleton(AuthBloc(
     messageCubit: getIt<MessageCubit>(),
   ));
-  getIt.registerSingleton(EventsBloc());
+  getIt.registerSingleton(EventsBloc(
+    messageCubit: getIt<MessageCubit>(),
+  ));
 }

@@ -1,4 +1,5 @@
 import 'package:boletera/src/blocs/blocs.dart';
+import 'package:boletera/src/ui/views/loader_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -40,9 +41,17 @@ class DashboardLayout extends StatelessWidget {
               child: Row(
                 children: [
                   const LateralMenu(),
-                  GraphQLProvider(
-                    client: GraphQLClients.novekClient,
-                    child: Expanded(child: child),
+                  FutureBuilder(
+                    future: GraphQLClients().getNovekClient(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return GraphQLProvider(
+                          client: snapshot.data,
+                          child: Expanded(child: child),
+                        );
+                      }
+                      return const LoaderView();
+                    },
                   ),
                 ],
               ),

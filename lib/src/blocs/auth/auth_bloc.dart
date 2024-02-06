@@ -23,7 +23,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         super(const AuthState()) {
     on<LogIn>((event, emit) => emit(state.copyWith(email: event.email, password: event.password)));
     on<GetPassCode>((event, emit) => emit(state.copyWith(changePassCode: event.changePassCode)));
-    on<LoadingProcess>((event, emit) => emit(state.copyWith(isLoading: event.isLoading)));
     on<VerifyAuth>((event, emit) => emit(state.copyWith(authStatus: event.authStatus)));
     on<SelectViewMode>((event, emit) => emit(state.copyWith(viewMode: event.viewMode)));
     isAuthenticated();
@@ -54,9 +53,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     add(GetPassCode(list));
   }
 
-  void changeLoadingState(bool isLoading) {
-    add(LoadingProcess(isLoading));
-  }
+  // void changeLoadingState(bool isLoading) {
+  //   add(LoadingProcess(isLoading));
+  // }
 
   void changeAuthenticationState(AuthStatus authStatus) {
     add(VerifyAuth(authStatus));
@@ -81,7 +80,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       return;
     }
 
-    changeLoadingState(true);
+    _messageCubit.changeLoadingState(true);
 
     try {
       final GraphQLClient client = GraphQLProvider.of(context).value;
@@ -103,9 +102,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }
     } catch (error) {
       _messageCubit.changeCode('000');
-      changeLoadingState(false);
+      _messageCubit.changeLoadingState(false);
     }
-    changeLoadingState(false);
+    _messageCubit.changeLoadingState(false);
   }
 
   Future<bool> googleStartSession() async {

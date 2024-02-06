@@ -30,7 +30,23 @@ class EventsState extends Equatable {
     Event? event,
   }) =>
       EventsState(
-        event: event ?? this.event,
+        event: Event(
+          eventID: event?.eventID ?? this.event.eventID,
+          eventName: event?.eventName ?? this.event.eventName,
+          description: event?.description ?? this.event.description,
+          startDate: event?.startDate ?? this.event.startDate,
+          endDate: event?.endDate ?? this.event.endDate,
+          dateRegister: event?.dateRegister ?? this.event.dateRegister,
+          location: event?.location ?? this.event.location,
+          country: event?.country ?? this.event.country,
+          status: event?.status ?? this.event.status,
+          image: event?.image ?? this.event.image,
+          bannerImage: event?.bannerImage ?? this.event.bannerImage,
+          type: event?.type ?? this.event.type,
+          isForAdult: event?.isForAdult ?? this.event.isForAdult,
+          areas: event?.areas ?? this.event.areas,
+          category: event?.category ?? this.event.category,
+        ),
       );
 
   @override

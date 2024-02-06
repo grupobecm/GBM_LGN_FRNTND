@@ -5,8 +5,10 @@ import 'package:flutter_dropzone/flutter_dropzone.dart';
 
 class CustomImagePicker extends StatefulWidget {
   final String text;
+  final Function onChanged;
   const CustomImagePicker({
     required this.text,
+    required this.onChanged,
     Key? key,
   }) : super(key: key);
 
@@ -53,27 +55,33 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
             ),
           ),
         ),
-        SizedBox(
-          height: 30,
-          child: DropzoneView(
-            operation: DragOperation.copy,
-            cursor: CursorType.grab,
-            onCreated: (ctrl) => _controller = ctrl,
-            onLoaded: () => print('Zone, 1 loaded'),
-            onError: (err) => print('Zone, 1 error: $err'),
-            onDrop: (event) async {
-              final name = event.name;
+        TapRegion(
+          onTapInside: (event) {},
+          child: SizedBox(
+            height: 30,
+            child: DropzoneView(
+              operation: DragOperation.copy,
+              cursor: CursorType.grab,
+              onCreated: (ctrl) => _controller = ctrl,
+              onLoaded: () => print('Zone, 1 loaded'),
+              onError: (err) => print('Zone, 1 error: $err'),
+              onDrop: (event) async {
+                print(event.toString());
+                final name = event.name;
 
-              _controller.getFileData(event);
+                _controller.getFileData(event);
 
-              setState(() {
-                _imageName = name;
-              }); // TODO: Ajustar Image Picker
+                setState(() {
+                  _imageName = name;
+                });
 
-              print(name);
-              print(event.type);
-            },
-            onDropInvalid: (err) => print('Zone 1 invalid MIME: $err'),
+                print(name);
+                print(event.type);
+
+                widget.onChanged(event);
+              },
+              onDropInvalid: (err) => print('Zone 1 invalid MIME: $err'),
+            ),
           ),
         ),
       ],

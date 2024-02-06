@@ -19,7 +19,7 @@ class AuthLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AuthBloc authBloc = context.watch<AuthBloc>();
-    // final ScrollController scrollController = ScrollController();
+    final MessageCubit messageCubit = context.watch<MessageCubit>();
 
     final Size size = MediaQuery.of(context).size;
 
@@ -27,7 +27,7 @@ class AuthLayout extends StatelessWidget {
       body: GraphQLProvider(
         client: GraphQLClients.authClient,
         child: ModalProgressHUD(
-          inAsyncCall: authBloc.state.isLoading,
+          inAsyncCall: messageCubit.state.isLoading,
           progressIndicator: const LoaderView(),
           opacity: 0.15,
           child: (size.width > 1000)

@@ -5,10 +5,12 @@ import 'package:flutter/material.dart';
 class CustomDropdownButton extends StatefulWidget {
   final List<String> items;
   final String text;
+  final Function onChanged;
 
   const CustomDropdownButton({
     required this.items,
     required this.text,
+    required this.onChanged,
     Key? key,
   }) : super(key: key);
 
@@ -58,7 +60,12 @@ class _CustomDropdownButtonState extends State<CustomDropdownButton> {
           child: Text(value),
         );
       }).toList(),
-      onChanged: (value) => setState(() => _selectedItem = value!),
+      onChanged: (value) {
+        setState(() => _selectedItem = value!);
+
+        if ( value == widget.items[0]) widget.onChanged('Private');
+        if ( value == widget.items[1]) widget.onChanged('Public');
+      },
     );
   }
 }

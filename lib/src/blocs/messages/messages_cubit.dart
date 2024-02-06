@@ -11,10 +11,16 @@ class MessageCubit extends Cubit<MessageState> {
   MessageCubit({
     String message = '',
     String code = '',
+    bool isLoading = false,
   }) : super(MessageState(
           message: message,
           code: code,
+          isLoading: isLoading,
         ));
+
+  void changeLoadingState(bool isLoading) {
+    emit(state.copyWith(isLoading: isLoading));
+  }
 
   void changeCode(String code) {
     emit(state.copyWith(code: code));

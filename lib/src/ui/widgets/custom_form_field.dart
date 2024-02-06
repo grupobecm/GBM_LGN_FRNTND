@@ -1,3 +1,5 @@
+import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 
 class CustomFormField extends StatefulWidget {
@@ -23,11 +25,13 @@ class CustomFormField extends StatefulWidget {
 class _CustomFormFieldState extends State<CustomFormField> {
   late bool _hidePassword;
   late DateTime? _date;
+  late TextEditingController _controller;
 
   @override
   void initState() {
     _hidePassword = true;
     _date = DateTime.now();
+    _controller = TextEditingController();
     super.initState();
   }
 
@@ -36,6 +40,7 @@ class _CustomFormFieldState extends State<CustomFormField> {
     return Padding(
       padding: const EdgeInsets.only(bottom: 15),
       child: TextFormField(
+        controller: _controller,
         decoration: customDecoration(widget.text, context),
         cursorColor: Colors.black,
         obscureText: widget.fieldType == 2 ? _hidePassword : false,
@@ -54,6 +59,37 @@ class _CustomFormFieldState extends State<CustomFormField> {
                     ? 600
                     : 100,
         maxLines: widget.fieldType == 4 ? null : 1,
+        onTap: () async {
+          DateTime? pickedDate = widget.fieldType == 3
+              ? await showDatePicker(
+                  context: context,
+                  keyboardType: TextInputType.datetime,
+                  initialDate: _date,
+                  firstDate: DateTime.now(),
+                  lastDate: DateTime(DateTime.now().year + 1),
+                  builder: (context, child) {
+                    final Color color = Theme.of(context).colorScheme.secondary;
+
+                    return Theme(
+                      data: ThemeData.light().copyWith(
+                        primaryColor: color,
+                        colorScheme: ColorScheme.light(primary: color),
+                        buttonTheme: const ButtonThemeData(textTheme: ButtonTextTheme.primary),
+                      ),
+                      child: child!,
+                    );
+                  },
+                )
+              : null;
+
+          if (pickedDate != null && pickedDate != _date) {
+            setState(() {
+              _date = pickedDate;
+            });
+            _controller.text = pickedDate.toString();
+            widget.onChanged('${DateFormat("yyyy-MM-ddTHH:mm:ss.SSSZ").format(pickedDate.toUtc())}Z');
+          }
+        },
         validator: (value) {
           if (widget.fieldType == 1) {
             return _emailValidator(value!);
@@ -140,6 +176,8 @@ class _CustomFormFieldState extends State<CustomFormField> {
               setState(() {
                 _date = pickedDate;
               });
+              _controller.text = pickedDate.toString();
+              widget.onChanged('${DateFormat("yyyy-MM-ddTHH:mm:ss.SSSZ").format(pickedDate.toUtc())}Z');
             }
           },
         );
@@ -171,5 +209,36 @@ class _CustomFormFieldState extends State<CustomFormField> {
     if (pass.isEmpty) return 'Ingrese su contraseña';
     if (pass.length < 6) return 'La contraseña debe ser de 6 caracteres';
     return null;
+  }
+
+  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+    final dateFormat = DateFormat("yyyy-MM-ddTHH:mm:ss.SSSZ");
+    String newText = newValue.text.replaceAll(RegExp(r'[^0-9]'), '');
+    newText = newText.padLeft("yyyy-MM-ddTHH:mm:ss.SSSZ".length, '0');
+    final dateTime = dateFormat.parseStrict(newText);
+    final formatted = dateFormat.format(dateTime);
+    return TextEditingValue(
+      text: formatted,
+      selection: TextSelection.collapsed(offset: formatted.length),
+    );
+  }
+}
+
+class CustomDateInputFormatter extends TextInputFormatter {
+  final String formatPattern;
+
+  CustomDateInputFormatter({required this.formatPattern});
+
+  @override
+  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+    final dateFormat = DateFormat(formatPattern);
+    String newText = newValue.text.replaceAll(RegExp(r'[^0-9]'), '');
+    newText = newText.padLeft(formatPattern.length, '0');
+    final dateTime = dateFormat.parseStrict(newText);
+    final formatted = dateFormat.format(dateTime);
+    return TextEditingValue(
+      text: formatted,
+      selection: TextSelection.collapsed(offset: formatted.length),
+    );
   }
 }

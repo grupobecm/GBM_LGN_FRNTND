@@ -1,5 +1,3 @@
-// ignore_for_file: unused_field
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -17,6 +15,7 @@ class EventGeneralDataView extends StatefulWidget {
 class _EventGeneralDataViewState extends State<EventGeneralDataView> {
   static final GlobalKey<FormState> _loginFormKey = GlobalKey<FormState>();
   late int _selectedValue;
+  late EventsBloc _eventsBloc;
 
   @override
   void initState() {
@@ -26,16 +25,12 @@ class _EventGeneralDataViewState extends State<EventGeneralDataView> {
 
   @override
   Widget build(BuildContext context) {
-    final EventsBloc eventsBloc = context.watch<EventsBloc>();
+    _eventsBloc = context.watch<EventsBloc>();
 
-    eventsBloc.resetFormKey(_loginFormKey);
-
-    // DateTime now = DateTime.now();
-
-    // print(DateFormat("yyyy-MM-ddTHH:mm:ss.SSSZ").format(now.toUtc()));
+    _eventsBloc.resetFormKey(_loginFormKey);
 
     return Form(
-      key: eventsBloc.formKey,
+      key: _eventsBloc.formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -50,22 +45,26 @@ class _EventGeneralDataViewState extends State<EventGeneralDataView> {
                 value: 1,
                 groupValue: _selectedValue,
                 activeColor: Theme.of(context).colorScheme.secondary,
-                onChanged: (value) => setState(() => _selectedValue = value as int),
+                onChanged: (value) {
+                  setState(() => _selectedValue = value as int);
+                  _eventsBloc.setEventData(isForAdult: false);
+                },
               ),
               const Expanded(child: Text('Público en general', overflow: TextOverflow.ellipsis)),
               Radio(
                 value: 2,
                 groupValue: _selectedValue,
                 activeColor: Theme.of(context).colorScheme.secondary,
-                onChanged: (value) => setState(() => _selectedValue = value as int),
+                onChanged: (value) {
+                  setState(() => _selectedValue = value as int);
+                  _eventsBloc.setEventData(isForAdult: true);
+                },
               ),
               const Expanded(child: Text('Solo mayores de edad', overflow: TextOverflow.ellipsis)),
             ],
           ),
-          CustomFormField(
-            text: 'Nombre del Evento *',
-            onChanged: (value) {},
-          ),
+          const SizedBox(height: 10),
+          CustomFormField(text: 'Nombre del Evento *', onChanged: (value) => _eventsBloc.setEventData(name: value)),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -74,7 +73,7 @@ class _EventGeneralDataViewState extends State<EventGeneralDataView> {
                   text: 'Fecha y hora inicial *',
                   visibilityIcon: true,
                   fieldType: 3,
-                  onChanged: (value) {},
+                  onChanged: (value) => _eventsBloc.setEventData(startDate: value),
                 ),
               ),
               const SizedBox(width: 5),
@@ -83,7 +82,7 @@ class _EventGeneralDataViewState extends State<EventGeneralDataView> {
                   text: 'Fecha y hora final *',
                   visibilityIcon: true,
                   fieldType: 3,
-                  onChanged: (value) {},
+                  onChanged: (value) => _eventsBloc.setEventData(endDate: value),
                 ),
               ),
             ],
@@ -91,28 +90,35 @@ class _EventGeneralDataViewState extends State<EventGeneralDataView> {
           CustomFormField(
             text: 'Descripción',
             fieldType: 4,
-            onChanged: (value) {},
+            onChanged: (value) => _eventsBloc.setEventData(description: value),
           ),
           CustomFormField(
             text: 'Ubicación',
-            onChanged: (value) {},
+            onChanged: (value) => _eventsBloc.setEventData(location: value),
           ),
-          const Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Expanded(
                 child: CustomDropdownButton(
-                  items: ['Privado', 'Publico'],
+                  items: const ['Privado', 'Publico'],
                   text: 'Visibilidad',
+                  onChanged: (value) => _eventsBloc.setEventData(type: value),
                 ),
               ),
-              SizedBox(width: 5),
+              const SizedBox(width: 5),
               Expanded(
                 child: Column(
                   children: [
-                    CustomImagePicker(text: 'Imagen de Evento'),
-                    SizedBox(height: 5),
-                    CustomImagePicker(text: 'Banner de Evento'),
+                    CustomImagePicker(
+                      text: 'Imagen de Evento',
+                      onChanged: (value) => _eventsBloc.setEventData(image: value),
+                    ),
+                    const SizedBox(height: 5),
+                    CustomImagePicker(
+                      text: 'Banner de Evento',
+                      onChanged: (value) => _eventsBloc.setEventData(banner: value),
+                    ),
                   ],
                 ),
               ),
