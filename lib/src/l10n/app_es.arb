@@ -1,0 +1,46 @@
+{
+    "@@locale": "es",
+    "cancelButton": "Cancelar",
+    "aceptButton": "Aceptar",
+
+    "errorLogin": "Fallo de inicio de sesión",
+    "fatalErrorLogin": "Ocurrió un problema en la llamada a Login",
+    "successLogin": "Inicio de sesión correcto",
+    "successStripe": "Pago exitoso",
+    "errorStripe": "Ocurrio un error en Stripe",
+
+    "loginTitle": "Continuar con",
+    "changePassTitle": "Recuperar contraseña",
+
+    "authSubtitle": "O ingresa con tu cuenta de correo",
+
+    "loginForm1": "Correo",
+    "loginForm2": "Contraseña",
+    "loginButton": "Iniciar sesión",
+    "loginForgotPass": "¿Olvidaste tu contraseña?",
+    "loginAreYouNew": "¿Eres nuevo en Ticketin? ",
+    "loginNewAcount": "Crea una cuenta",
+
+    "formName": "Nombre*",
+    "formLastName": "Apellidos*",
+    "formEmail": "Correo*",
+    "formPass": "Contraseña*",
+    "formPassConfirm": "Confirmar Contraseña*",
+
+    "newAcountCheckBox1": "Soy organizador de eventos.",
+    "newAcountCheckBox2": "He leído  y acepto los términos y condiciones.",
+    "newAcountCheckBox3": "He leído y acepto el uso de mis datos personales de acuerdo con el aviso de privacidad.",
+    "newAccountButton": "Crear cuenta",
+    "haveAcount": "¿Ya tienes una cuenta? ",
+
+    "resetPassSubtitle": "Ingresa el correo electrónico con el que te registraste",
+    "resetPassCodeSubtitle": "Ingresa el código de verificación que enviamos a tu correo",
+    "confirmPass": "Confirmar Contraseña",
+
+    "menuOne": "Eventos",
+
+    "stepOne": "Informacion de Evento",
+    "stepTwo": "Areas del Evento",
+    "stepThree": "Fases del Evento",
+    "stepFour": "Lineup del Evento"
+}
