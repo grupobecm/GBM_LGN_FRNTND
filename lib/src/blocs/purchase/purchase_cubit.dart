@@ -90,6 +90,35 @@ class PurchaseCubit extends Cubit<PurchaseState> {
     try {
       final bytes = await loadImageAsUint8List('assets/images/Banner.png');
 
+//       import 'dart:io'; //TODO: Codigo para convertir la imagen en PDF.
+// import 'package:image/image.dart' as img;
+// import 'package:pdf/pdf.dart';
+// import 'package:pdf/widgets.dart' as pw;
+
+// void main() {
+
+//   String imagePath = 'ruta/a/la/imagen.png';
+
+//   img.Image image = img.decodeImage(File(imagePath).readAsBytesSync());
+
+//   final pdf = pw.Document();
+
+//   pdf.addPage(
+//     pw.Page(
+//       build: (pw.Context context) {
+//         return pw.Center(
+//           child: pw.Image(
+//             pw.MemoryImage(
+//               File(imagePath).readAsBytesSync(),
+//             ),
+//           ),
+//         );
+//       },
+//     ),
+//   );
+
+//   File('imagen_convertida.pdf').writeAsBytesSync(pdf.save());
+
       final http.MultipartFile image = http.MultipartFile.fromBytes(
         'image',
         bytes,
