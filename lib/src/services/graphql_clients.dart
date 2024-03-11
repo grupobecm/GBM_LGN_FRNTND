@@ -184,10 +184,10 @@ class GraphQLClients {
 
   // Payment Process Stripe
   static const String processPayment = """
-  mutation ProcessPayment(\$id: UUID!, \$method: String!, \$discount: String, \$firstname: String!, \$lastname: String!, \$email: String) {
+  mutation ProcessPayment(\$id: [UUID!]!, \$method: String!, \$discount: String, \$firstname: String!, \$lastname: String!, \$email: String) {
     ProcessPayment(
       input: { 
-        ticket_id: \$id,
+        phases_id: \$id,
         payment_method: \$method,
         code_discount: \$discount,
         email: \$email,

@@ -86,7 +86,6 @@ class OrderCard extends StatelessWidget {
                   text: 'Pagar Boleto',
                   onPressed: () {
                     purchaseCubit.processPayment(context);
-                    // purchaseCubit.stripePayment('pi_3OrxcJLQGIF4IMXc0gxoJJJm_secret_DH18iu50RydvkhzRxDCNBmEYC');
                   },
                 ),
               )

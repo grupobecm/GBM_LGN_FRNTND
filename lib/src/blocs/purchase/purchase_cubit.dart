@@ -1,10 +1,11 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'dart:typed_data';
-import 'package:http/http.dart' as http;
 import 'package:bloc/bloc.dart';
+import 'package:boletera/src/models/models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
+import 'package:pdf/widgets.dart' as pw;
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
@@ -21,18 +22,22 @@ class PurchaseCubit extends Cubit<PurchaseState> {
 
   PurchaseCubit({
     required AuxiliaryCubit auxiliaryCubit,
-    String ticketID = '68FE3F26-6844-49CE-B31C-295BC945262C',
-    String firstName = 'Ramon',
-    String lastName = 'Villalpando',
-    String email = 'ramon.villalpando@polimentes.com',
-    String secret = '',
+    // String ticketID = 'bfc8c118-b456-47b7-9dff-773e7578e923',
+    // List<List<String>> phaseTicket = const [],
+    // String firstName = 'Ramon',
+    // String lastName = 'Villalpando',
+    // String email = 'ramon.villalpando@polimentes.com',
+    // String secret = '',
   })  : _auxiliaryCubit = auxiliaryCubit,
-        super(PurchaseState(
-          ticketID: ticketID,
-          firstName: firstName,
-          lastName: lastName,
-          email: email,
-          secret: secret,
+        super(const PurchaseState(
+          orderData: PurchaseOrder(
+            phasesID: [],
+            ticketsID: [],
+            firstName: '',
+            lastName: '',
+            email: '',
+            secret: '',
+          ),
         ));
 
   Future<void> processPayment(BuildContext context) async {
@@ -44,12 +49,12 @@ class PurchaseCubit extends Cubit<PurchaseState> {
         fetchPolicy: FetchPolicy.networkOnly,
         optimisticResult: client,
         variables: {
-          'id': state.ticketID,
+          'id': state.orderData.phasesID, // TODO: Obtener datos de face seleccionados.
           'method': 'pm_card_visa',
           'discount': '',
-          'email': state.email,
-          'firstname': state.firstName,
-          'lastname': state.lastName,
+          'email': state.orderData.email,
+          'firstname': state.orderData.firstName,
+          'lastname': state.orderData.lastName,
         },
       ));
 
@@ -89,43 +94,28 @@ class PurchaseCubit extends Cubit<PurchaseState> {
 
     try {
       final bytes = await loadImageAsUint8List('assets/images/Banner.png');
+      final pdf = pw.Document();
 
-//       import 'dart:io'; //TODO: Codigo para convertir la imagen en PDF.
-// import 'package:image/image.dart' as img;
-// import 'package:pdf/pdf.dart';
-// import 'package:pdf/widgets.dart' as pw;
-
-// void main() {
-
-//   String imagePath = 'ruta/a/la/imagen.png';
-
-//   img.Image image = img.decodeImage(File(imagePath).readAsBytesSync());
-
-//   final pdf = pw.Document();
-
-//   pdf.addPage(
-//     pw.Page(
-//       build: (pw.Context context) {
-//         return pw.Center(
-//           child: pw.Image(
-//             pw.MemoryImage(
-//               File(imagePath).readAsBytesSync(),
-//             ),
-//           ),
-//         );
-//       },
-//     ),
-//   );
-
-//   File('imagen_convertida.pdf').writeAsBytesSync(pdf.save());
+      pdf.addPage(
+        pw.Page(
+          build: (pw.Context context) {
+            return pw.Center(
+              child: pw.Image(
+                pw.MemoryImage(bytes),
+              ),
+            );
+          },
+        ),
+      );
+      final pdf2 = await pdf.save();
 
       final http.MultipartFile image = http.MultipartFile.fromBytes(
-        'image',
-        bytes,
-        filename: 'ticket',
+        'ticket',
+        pdf2,
+        filename: 'ticket.pdf',
         contentType: MediaType(
-          'image',
-          'png',
+          'application',
+          'pdf',
         ),
       );
 
@@ -134,20 +124,19 @@ class PurchaseCubit extends Cubit<PurchaseState> {
         fetchPolicy: FetchPolicy.networkOnly,
         optimisticResult: client,
         variables: {
-          'uuid': state.ticketID,
+          'uuid': "68FE3F26-6844-49CE-B31C-295BC945262C", // TODO: Obtener UUID de la face.
           'image': image,
-          'places': const ["A1", "A2"],
+          'places': const [],
           'discount': '',
           'sk': skStripe,
-          'email': state.email,
-          'firstName': state.firstName,
-          'lastName': state.lastName,
+          'email': state.orderData.email,
+          'firstName': state.orderData.firstName,
+          'lastName': state.orderData.lastName,
         },
       ));
 
       if (!result.hasException) {
-        // _auxiliaryCubit.changeCode('200');
-        // await stripePayment(result.data!['ProcessPayment']);
+        _auxiliaryCubit.changeCode('200');
       } else {
         _auxiliaryCubit.changeCode('404');
       }
@@ -159,8 +148,8 @@ class PurchaseCubit extends Cubit<PurchaseState> {
   }
 
   Future<Uint8List> loadImageAsUint8List(String assetName) async {
-  ByteData data = await rootBundle.load(assetName);
-  List<int> bytes = data.buffer.asUint8List();
-  return Uint8List.fromList(bytes);
-}
+    ByteData data = await rootBundle.load(assetName);
+    List<int> bytes = data.buffer.asUint8List();
+    return Uint8List.fromList(bytes);
+  }
 }

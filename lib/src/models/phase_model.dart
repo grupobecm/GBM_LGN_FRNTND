@@ -36,11 +36,6 @@ class EventPhase {
         price: price ?? this.price,
       );
 
-//   EventPhase.fromMap(Map<String, dynamic> map)
-//       : areaID = map['areaID'],
-//         name = map['name'],
-//         status = map['status'];
-
   factory EventPhase.fromJson(Map<String, dynamic> json) => EventPhase(
         phaseID: 0,
         name: json['phase_name'],
@@ -50,16 +45,4 @@ class EventPhase {
         quantity: json['quantity'],
         price: json['price'],
       );
-
-//   Map<String, dynamic> toJson() => {
-//         "areaID": areaID,
-//         "name": name,
-//         "status": status,
-//       };
 }
-
-// enum AreaStatus {
-//   cancel,
-//   close,
-//   open,
-// }
